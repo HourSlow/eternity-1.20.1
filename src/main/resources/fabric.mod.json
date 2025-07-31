@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "eternity",
+	"version": "${version}",
+	"name": "Eternity",
+	"description": "Power, Deals And Destruction.",
+	"authors": [
+		"Tarr_Mischief",
+		"HourSlow"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "ARR",
+	"icon": "assets/eternity/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.hour.eternity.Eternity"
+		],
+		"client": [
+			"net.hour.eternity.EternityClient"
+		],
+		"fabric-datagen": [
+			"net.hour.eternity.EternityDataGenerator"
+		]
+	},
+	"mixins": [
+		"eternity.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
