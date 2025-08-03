@@ -2,6 +2,7 @@ package net.hour.eternity;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.hour.eternity.world.dimension.ModDimensions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,8 @@ public class Eternity implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+		ModDimensions.register();
 
 	}
 }
