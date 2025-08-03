@@ -9,8 +9,8 @@
 		"HourSlow"
 	],
 	"contact": {
-		"homepage": "",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/eternity",
+		"sources": ""
 	},
 	"license": "ARR",
 	"icon": "assets/eternity/icon.png",
