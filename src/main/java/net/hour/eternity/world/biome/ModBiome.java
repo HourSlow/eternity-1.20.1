@@ -29,11 +29,7 @@ public class ModBiome {
 
     public static void globalOverworldGeneration(GenerationSettings.LookupBackedBuilder builder) {
         DefaultBiomeFeatures.addLandCarvers(builder);
-        DefaultBiomeFeatures.addAmethystGeodes(builder);
-        DefaultBiomeFeatures.addDungeons(builder);
-        DefaultBiomeFeatures.addMineables(builder);
         DefaultBiomeFeatures.addSprings(builder);
-        DefaultBiomeFeatures.addFrozenTopLayer(builder);
     }
 
     public static Biome corruptionBiome(Registerable<Biome> context) {
@@ -46,9 +42,6 @@ public class ModBiome {
                         context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         globalOverworldGeneration(biomeBuilder);
-        DefaultBiomeFeatures.addMossyRocks(biomeBuilder);
-        DefaultBiomeFeatures.addDefaultOres(biomeBuilder);
-        DefaultBiomeFeatures.addExtraGoldOre(biomeBuilder);
 
         biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.TREES_PLAINS);
 
