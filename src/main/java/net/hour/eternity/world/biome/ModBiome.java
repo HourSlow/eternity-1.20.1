@@ -20,22 +20,25 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 public class ModBiome {
-    public static final RegistryKey<Biome> CORRUPTION = RegistryKey.of(RegistryKeys.BIOME,
-            new Identifier(Eternity.MOD_ID, "corruption"));
+
+    public static final RegistryKey<Biome> WASTES = RegistryKey.of(RegistryKeys.BIOME,
+            new Identifier(Eternity.MOD_ID, "wastes"));
 
     public static void bootstrap(Registerable<Biome> context) {
-        context.register(CORRUPTION, corruptionBiome(context));
+        context.register(WASTES, wastesBiome(context));
     }
 
     public static void globalOverworldGeneration(GenerationSettings.LookupBackedBuilder builder) {
         DefaultBiomeFeatures.addLandCarvers(builder);
         DefaultBiomeFeatures.addSprings(builder);
+        DefaultBiomeFeatures.addMossyRocks(builder);
+        DefaultBiomeFeatures.addDesertDeadBushes(builder);
     }
 
-    public static Biome corruptionBiome(Registerable<Biome> context) {
+    public static Biome wastesBiome(Registerable<Biome> context) {
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
-        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.ENDERMAN, 5, 4, 4));
+        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WITHER_SKELETON, 2, 4, 4));
 
         GenerationSettings.LookupBackedBuilder biomeBuilder =
                 new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
@@ -43,21 +46,21 @@ public class ModBiome {
 
         globalOverworldGeneration(biomeBuilder);
 
-        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.TREES_PLAINS);
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
 
         return new Biome.Builder()
                 .precipitation(true)
-                .downfall(0.4f)
-                .temperature(0.7f)
+                .downfall(0.0f)
+                .temperature(2.0f)
                 .generationSettings(biomeBuilder.build())
                 .spawnSettings(spawnBuilder.build())
                 .effects((new BiomeEffects.Builder())
-                        .waterColor(0xe82e3b)
-                        .waterFogColor(0xbf1b26)
-                        .skyColor(0x30c918)
-                        .grassColor(0x7f03fc)
-                        .foliageColor(0xd203fc)
-                        .fogColor(0x22a1e6)
+                        .waterColor(0x5c4033)
+                        .waterFogColor(0x3e2f24)
+                        .skyColor(0x6b5e4e)
+                        .grassColor(0x665e3f)
+                        .foliageColor(0x4b3f2f)
+                        .fogColor(0x3c2f27)
                         .moodSound(BiomeMoodSound.CAVE)
                         .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.ENTITY_ENDERMITE_AMBIENT))).build())
                 .build();

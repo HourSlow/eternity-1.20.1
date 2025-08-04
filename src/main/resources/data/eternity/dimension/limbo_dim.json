@@ -6,12 +6,12 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "eternity:corruption",
+          "biome": "eternity:wastes",
           "parameters": {
-            "temperature": 0.7,
+            "temperature": 2,
             "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0.5,
+            "continentalness": 1,
+            "erosion": -0.5,
             "weirdness": 0,
             "depth": 0,
             "offset": 0
@@ -21,11 +21,23 @@
           "biome": "minecraft:birch_forest",
           "parameters": {
             "temperature": 0,
-            "humidity": 0,
-            "continentalness": 0,
-            "erosion": 0,
+            "humidity": 1,
+            "continentalness": 1,
+            "erosion": 0.3,
             "weirdness": 0,
             "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "minecraft:ocean",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.5,
+            "continentalness": -2,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": -1,
             "offset": 0
           }
         }
@@ -34,6 +46,3 @@
     "settings": "minecraft:overworld"
   }
 }
-
-
-

@@ -69,6 +69,13 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 17
 }
 
+tasks.named("runDatagen") {
+	jvmArgs += [
+			"-Dfabric-api.datagen.modid=eternity",
+			"-Dporting_lib.datagen.existing_resources=${file("src/main/resources").absolutePath}"
+	]
+}
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
@@ -95,6 +102,7 @@ publishing {
 			from components.java
 		}
 	}
+
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
 	repositories {

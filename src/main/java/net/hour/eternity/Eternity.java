@@ -17,7 +17,9 @@ public class Eternity implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
 		ModDimensions.register();
+
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.world == null) {
