@@ -6,8 +6,8 @@ out vec4 fragColor;
 
 void main() {
 	vec4 original = texture(DiffuseSampler, texCoord);
-	vec3 tintColor = vec3(0.5, 0.25, 0.25);
-	vec4 result = original * vec4(tintColor, 1);
 
-	fragColor = result;
+        float gray = dot(original.rgb, vec3(0.2126, 0.7152, 0.0722));
+
+        fragColor = vec4(vec3(gray), original.a);
 }
