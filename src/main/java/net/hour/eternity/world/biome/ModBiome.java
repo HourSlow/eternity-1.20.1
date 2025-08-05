@@ -1,8 +1,8 @@
 package net.hour.eternity.world.biome;
 
 import net.hour.eternity.Eternity;
+import net.hour.eternity.entity.ModEntities;
 import net.minecraft.client.sound.MusicType;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -38,7 +38,7 @@ public class ModBiome {
     public static Biome wastesBiome(Registerable<Biome> context) {
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
-        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.WITHER_SKELETON, 2, 4, 4));
+        spawnBuilder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntities.THE_FORGOTTEN, 100, 1, 3));
 
         GenerationSettings.LookupBackedBuilder biomeBuilder =
                 new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
@@ -46,7 +46,7 @@ public class ModBiome {
 
         globalOverworldGeneration(biomeBuilder);
 
-        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH_BADLANDS);
 
         return new Biome.Builder()
                 .precipitation(true)
