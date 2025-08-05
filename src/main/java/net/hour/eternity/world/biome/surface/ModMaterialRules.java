@@ -7,6 +7,7 @@ import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 public class ModMaterialRules {
     private static final MaterialRules.MaterialRule DIRT = makeStateRule(Blocks.DIRT);
+    private static final MaterialRules.MaterialRule GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
     private static final MaterialRules.MaterialRule COARSE_DIRT = makeStateRule(Blocks.COARSE_DIRT);
     private static final MaterialRules.MaterialRule STONE = makeStateRule(Blocks.STONE);
 

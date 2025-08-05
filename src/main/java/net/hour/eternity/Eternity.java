@@ -10,6 +10,7 @@ import net.hour.eternity.entity.custom.ForgottenEntity;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.world.dimension.ModDimensions;
+import net.hour.eternity.world.gen.ModEntitySpawns;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -27,8 +28,8 @@ public class Eternity implements ModInitializer {
 
 		ModItems.registerModItems();
 		ModDimensions.register();
-
-
+		ModEntitySpawns.addSpawns();
+		ModEntities.registerModEntities();
 
 
 		FabricDefaultAttributeRegistry.register(ModEntities.THE_FORGOTTEN,

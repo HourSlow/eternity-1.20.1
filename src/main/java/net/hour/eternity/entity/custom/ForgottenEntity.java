@@ -116,4 +116,9 @@ public class ForgottenEntity extends HostileEntity {
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_VEX_HURT;
     }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_ENDERMITE_DEATH;
+    }
 }

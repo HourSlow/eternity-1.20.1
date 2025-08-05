@@ -13,6 +13,10 @@ import net.minecraft.util.Identifier;
 public class ModEntities {
     public static final EntityType<ForgottenEntity> THE_FORGOTTEN = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Eternity.MOD_ID, "the_forgotten"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ForgottenEntity::new)
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ForgottenEntity::new)
                     .dimensions(EntityDimensions.fixed(0.6f,1.9f)).build());
+
+    public static void registerModEntities() {
+        Eternity.LOGGER.debug(Eternity.MOD_ID, " - ModItems");
+    }
 }
