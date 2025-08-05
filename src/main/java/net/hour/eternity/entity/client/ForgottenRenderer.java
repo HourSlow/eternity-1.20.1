@@ -8,12 +8,12 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-public class ForgottenRenderer extends MobEntityRenderer<ForgottenEntity, TheForgotten<ForgottenEntity>> {
+public class ForgottenRenderer extends MobEntityRenderer<ForgottenEntity, ForgottenModel<ForgottenEntity>> {
 
     private static final Identifier TEXTURE = new Identifier(Eternity.MOD_ID, "textures/entity/forgotten.png");
 
     public ForgottenRenderer(EntityRendererFactory.Context context) {
-        super(context, new TheForgotten<>(context.getPart(ModModelLayers.THE_FORGOTTEN)),
+        super(context, new ForgottenModel<>(context.getPart(ModModelLayers.THE_FORGOTTEN)),
                 0.35f);
     }
 

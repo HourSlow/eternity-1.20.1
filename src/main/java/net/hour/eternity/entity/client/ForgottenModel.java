@@ -8,7 +8,7 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
-public class TheForgotten<T extends ForgottenEntity> extends SinglePartEntityModel<T> {
+public class ForgottenModel<T extends ForgottenEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart forgotten;
 	private final ModelPart right_arm;
 	private final ModelPart left_arm;
@@ -16,7 +16,7 @@ public class TheForgotten<T extends ForgottenEntity> extends SinglePartEntityMod
 	private final ModelPart left_leg;
 	private final ModelPart right_leg;
 	private final ModelPart head;
-	public TheForgotten(ModelPart root) {
+	public ForgottenModel(ModelPart root) {
 		this.forgotten = root.getChild("forgotten");
 		this.right_arm = this.forgotten.getChild("right_arm");
 		this.left_arm = this.forgotten.getChild("left_arm");
@@ -50,6 +50,7 @@ public class TheForgotten<T extends ForgottenEntity> extends SinglePartEntityMod
 
 		this.animateMovement(ModAnimations.WALK, limbSwing, limbSwingAmount, 0f, 0f);
 		this.updateAnimation(entity.idleAnimationState, ModAnimations.IDLE, ageInTicks, 1f);
+		this.updateAnimation(entity.attackAnimationState, ModAnimations.ATTACK, ageInTicks, 1f);
 	}
 
 	private void setHeadAngles(float headYaw, float headPitch) {
