@@ -3,6 +3,10 @@ package net.hour.eternity;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.hour.eternity.entity.ModEntities;
+import net.hour.eternity.entity.custom.ForgottenEntity;
+import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.minecraft.registry.RegistryKey;
@@ -18,8 +22,11 @@ public class Eternity implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
+		ModItems.registerModItems();
 		ModDimensions.register();
 
+		FabricDefaultAttributeRegistry.register(ModEntities.THE_FORGOTTEN,
+				ForgottenEntity.createTheForgottenAttributes());
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.world == null) {
