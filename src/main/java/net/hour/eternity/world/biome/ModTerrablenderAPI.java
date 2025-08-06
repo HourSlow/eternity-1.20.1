@@ -2,6 +2,7 @@ package net.hour.eternity.world.biome;
 
 import net.hour.eternity.Eternity;
 import net.hour.eternity.world.biome.surface.ModMaterialRules;
+import net.hour.eternity.world.biome.surface.ModMaterialRules2;
 import net.minecraft.util.Identifier;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
@@ -14,5 +15,6 @@ public class ModTerrablenderAPI implements TerraBlenderApi {
         Regions.register(new ModOverworldRegion(new Identifier(Eternity.MOD_ID, "overworld"), 4));
 
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, Eternity.MOD_ID, ModMaterialRules.makeRules());
+        //SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, Eternity.MOD_ID, ModMaterialRules2.makeRules());
     }
 }

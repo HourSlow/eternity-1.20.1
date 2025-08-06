@@ -18,7 +18,7 @@
           }
         },
         {
-          "biome": "minecraft:birch_forest",
+          "biome": "eternity:eerie_forest",
           "parameters": {
             "temperature": 0,
             "humidity": 1,

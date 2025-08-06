@@ -1,10 +1,7 @@
 package net.hour.eternity.world.biome;
 
 import net.hour.eternity.Eternity;
-import net.hour.eternity.entity.ModEntities;
 import net.minecraft.client.sound.MusicType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -22,21 +19,26 @@ public class ModBiome {
     public static final RegistryKey<Biome> WASTES = RegistryKey.of(RegistryKeys.BIOME,
             new Identifier(Eternity.MOD_ID, "wastes"));
 
+    public static final RegistryKey<Biome> EERIE_FOREST = RegistryKey.of(RegistryKeys.BIOME,
+            new Identifier(Eternity.MOD_ID, "eerie_forest"));
+
+
+
     public static void bootstrap(Registerable<Biome> context) {
         context.register(WASTES, wastesBiome(context));
+        context.register(EERIE_FOREST, eerieForestBiome(context));
     }
+
 
     public static void globalOverworldGeneration(GenerationSettings.LookupBackedBuilder builder) {
         DefaultBiomeFeatures.addLandCarvers(builder);
         DefaultBiomeFeatures.addSprings(builder);
-        DefaultBiomeFeatures.addMossyRocks(builder);
-        DefaultBiomeFeatures.addDesertDeadBushes(builder);
     }
 
-    public static Biome wastesBiome(Registerable<Biome> context) {
-        SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
-        //spawnBuilder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntities.THE_FORGOTTEN, 100, 1, 5));
+
+    public static Biome eerieForestBiome(Registerable<Biome> context) {
+        SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
         GenerationSettings.LookupBackedBuilder biomeBuilder =
                 new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
@@ -44,10 +46,42 @@ public class ModBiome {
 
         globalOverworldGeneration(biomeBuilder);
 
-        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH_BADLANDS);
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.DARK_FOREST_VEGETATION);
 
         return new Biome.Builder()
                 .precipitation(true)
+                .downfall(1.0f)
+                .temperature(0.0f)
+                .generationSettings(biomeBuilder.build())
+                .spawnSettings(spawnBuilder.build())
+                .effects((new BiomeEffects.Builder())
+                        .waterColor(0xc9e4de)
+                        .waterFogColor(0xaad2c6)
+                        .skyColor(0xdedede)
+                        .grassColor(0xcfdac8)
+                        .foliageColor(0xd5e1d5)
+                        .fogColor(0xdddddd)
+                        .moodSound(BiomeMoodSound.CAVE)
+                        .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.ENTITY_ENDERMITE_AMBIENT))).build())
+                .build();
+    }
+
+
+    public static Biome wastesBiome(Registerable<Biome> context) {
+        SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
+
+        GenerationSettings.LookupBackedBuilder biomeBuilder =
+                new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
+                        context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        globalOverworldGeneration(biomeBuilder);
+        DefaultBiomeFeatures.addMossyRocks(biomeBuilder);
+        DefaultBiomeFeatures.addDesertDeadBushes(biomeBuilder);
+
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH_BADLANDS);
+
+        return new Biome.Builder()
+                .precipitation(false)
                 .downfall(0.0f)
                 .temperature(2.0f)
                 .generationSettings(biomeBuilder.build())
