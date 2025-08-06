@@ -1,5 +1,15 @@
 {
+  "block.eternity.evergloom_log": "Evergloom Log",
+  "block.eternity.evergloom_wood": "Evergloom Wood",
+  "block.eternity.stripped_evergloom_log": "Stripped Evergloom Log",
+  "block.eternity.stripped_evergloom_wood": "Stripped Evergloom Wood",
+  "block.eternity.evergloom_planks": "Evergloom Planks",
+  "block.eternity.evergloom_leaves": "Evergloom Leaves",
+
+
     "item.eternity.forgotten_spawn_egg": "Forgotten Spawn Egg",
 
-    "entity.eternity.the_forgotten": "The Forgotten"
+    "entity.eternity.the_forgotten": "The Forgotten",
+
+    "itemGroup.eternity_tab": "Eternity"
 }

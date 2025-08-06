@@ -5,8 +5,10 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
+import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.world.dimension.ModDimensions;
@@ -26,7 +28,10 @@ public class Eternity implements ModInitializer {
 	@Override
 	public void onInitialize() {
 
+        ModBlocks.registerModBlocks();
+
 		ModItems.registerModItems();
+        ModItemGroup.registerItemGroup();
 
 		ModDimensions.register();
 

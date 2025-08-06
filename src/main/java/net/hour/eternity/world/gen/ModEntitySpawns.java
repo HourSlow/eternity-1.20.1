@@ -12,7 +12,7 @@ import net.minecraft.world.Heightmap;
 public class ModEntitySpawns {
     public static void addSpawns() {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ModBiome.WASTES),
-                SpawnGroup.MONSTER, ModEntities.THE_FORGOTTEN, 100,1,4);
+                SpawnGroup.MONSTER, ModEntities.THE_FORGOTTEN, 100,1,2);
 
         SpawnRestriction.register(ModEntities.THE_FORGOTTEN, SpawnRestriction.Location.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
