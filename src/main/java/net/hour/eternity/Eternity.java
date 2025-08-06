@@ -5,6 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
@@ -13,6 +15,7 @@ import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModEntitySpawns;
+import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -33,11 +36,21 @@ public class Eternity implements ModInitializer {
 		ModItems.registerModItems();
         ModItemGroup.registerItemGroup();
 
+        ModWorldGeneration.generateModWorldGen();
 		ModDimensions.register();
 
-		ModEntitySpawns.addSpawns();
 		ModEntities.registerModEntities();
 
+
+        StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
+        StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
+
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.STRIPPED_EVERGLOOM_LOG, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.STRIPPED_EVERGLOOM_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_WOOD, 5, 5);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_PLANKS, 5, 20);
+        FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LEAVES, 30, 60);
 
 		FabricDefaultAttributeRegistry.register(ModEntities.THE_FORGOTTEN,
 				ForgottenEntity.createTheForgottenAttributes());

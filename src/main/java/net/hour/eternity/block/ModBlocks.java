@@ -1,18 +1,29 @@
 package net.hour.eternity.block;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.hour.eternity.Eternity;
+import net.hour.eternity.item.ModItems;
+import net.hour.eternity.world.tree.EvergloomSaplingGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
+
+    public static final Block EVERGLOOM_SAPLING = registerBlock("evergloom_sapling",
+            new SaplingBlock(new EvergloomSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).breakInstantly()));
+
+
 
     public static final Block EVERGLOOM_LOG = registerBlock("evergloom_log",
             new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(5f)));
@@ -38,6 +49,17 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(Eternity.MOD_ID, name),block);
     }
 
+
+    private static void addBlockToIngredientItemGroup(FabricItemGroupEntries entries) {
+        entries.add(EVERGLOOM_LOG);
+        entries.add(EVERGLOOM_WOOD);
+        entries.add(EVERGLOOM_PLANKS);
+        entries.add(STRIPPED_EVERGLOOM_WOOD);
+        entries.add(STRIPPED_EVERGLOOM_LOG);
+        entries.add(EVERGLOOM_LEAVES);
+        entries.add(EVERGLOOM_SAPLING);
+    }
+
     private static Item registerBlockItem(String name, Block block) {
         return Registry.register(Registries.ITEM, new Identifier(Eternity.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
@@ -45,5 +67,7 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Eternity.LOGGER.debug(Eternity.MOD_ID + " - ModBlocks");
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModBlocks::addBlockToIngredientItemGroup);
     }
 }
