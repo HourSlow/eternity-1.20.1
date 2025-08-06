@@ -27,7 +27,9 @@ public class Eternity implements ModInitializer {
 	public void onInitialize() {
 
 		ModItems.registerModItems();
+
 		ModDimensions.register();
+
 		ModEntitySpawns.addSpawns();
 		ModEntities.registerModEntities();
 
