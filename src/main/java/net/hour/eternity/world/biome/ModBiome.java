@@ -22,15 +22,15 @@ public class ModBiome {
     public static final RegistryKey<Biome> EERIE_FOREST = RegistryKey.of(RegistryKeys.BIOME,
             new Identifier(Eternity.MOD_ID, "eerie_forest"));
 
-    public static final RegistryKey<Biome> CEMETERY = RegistryKey.of(RegistryKeys.BIOME,
-            new Identifier(Eternity.MOD_ID, "cemetery"));
+    public static final RegistryKey<Biome> GLITCHLANDS = RegistryKey.of(RegistryKeys.BIOME,
+            new Identifier(Eternity.MOD_ID, "glitchlands"));
 
 
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(WASTES, wastesBiome(context));
         context.register(EERIE_FOREST, eerieForestBiome(context));
-        context.register(CEMETERY, cemeteryBiome(context));
+        context.register(GLITCHLANDS, glitchlandsBiome(context));
     }
 
 
@@ -39,14 +39,12 @@ public class ModBiome {
         DefaultBiomeFeatures.addSprings(builder);
     }
 
-    public static Biome cemeteryBiome(Registerable<Biome> context) {
+    public static Biome glitchlandsBiome(Registerable<Biome> context) {
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
         GenerationSettings.LookupBackedBuilder biomeBuilder =
                 new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
                         context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
-
-        DefaultBiomeFeatures.addBirchTrees(biomeBuilder);
 
         biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
 
@@ -58,12 +56,12 @@ public class ModBiome {
                 .generationSettings(biomeBuilder.build())
                 .spawnSettings(spawnBuilder.build())
                 .effects((new BiomeEffects.Builder())
-                        .waterColor(0xb1cfc7)
-                        .waterFogColor(0x92b5ad)
-                        .skyColor(0xc4c4c4)
-                        .grassColor(0xbcc6b2)
-                        .foliageColor(0xb7c6b5)
-                        .fogColor(0xcccccc)
+                        .waterColor(0xff44aa)        // Neon magenta-pink water (very unnatural)
+                        .waterFogColor(0x4400ff)     // Deep purple-blue underwater fog
+                        .skyColor(0x00ffff)          // Bright cyan sky (digital / Tron vibe)
+                        .grassColor(0x00ff55)        // Vibrant green (almost too green)
+                        .foliageColor(0xff0055)      // Harsh pinkish-red foliage (broken colors)
+                        .fogColor(0x000000)          // Pitch black fog for eerie "rendering error" feel
                         .moodSound(BiomeMoodSound.CAVE)
                         .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.ENTITY_ENDERMITE_AMBIENT))).build())
                 .build();
@@ -77,6 +75,8 @@ public class ModBiome {
                         context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
 
         globalOverworldGeneration(biomeBuilder);
+
+        DefaultBiomeFeatures.addVines(biomeBuilder);
 
         biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_LARGE_FERN);
         biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);

@@ -42,7 +42,7 @@
           }
         },
         {
-          "biome": "eternity:cemetery",
+          "biome": "eternity:glitchlands",
           "parameters": {
             "temperature": 0,
             "humidity": 1,
