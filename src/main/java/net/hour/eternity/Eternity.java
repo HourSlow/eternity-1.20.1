@@ -14,7 +14,6 @@ import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.world.dimension.ModDimensions;
-import net.hour.eternity.world.gen.ModEntitySpawns;
 import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
@@ -27,6 +26,12 @@ public class Eternity implements ModInitializer {
 
 	public static final String MOD_ID = "eternity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    //---Useful Commands in Minecraft for testing Eternity:
+
+    // /execute in eternity:limbo_dim run tp Tarr_Mischief ~ ~ ~
+    // /locate biome eternity:{biome_name}
+
 
 	@Override
 	public void onInitialize() {

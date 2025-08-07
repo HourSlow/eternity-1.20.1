@@ -18,13 +18,18 @@ import java.util.List;
 public class ModPlacedFeatures {
 
     public static final RegistryKey<PlacedFeature> EVERGLOOM_PLACED_KEY = registerKey("evergloom_placed");
+    public static final RegistryKey<PlacedFeature> DEAD_OAK_PLACED_KEY = registerKey("dead_oak_placed");
 
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var configuredFeatureRegistryEntryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
         register(context, EVERGLOOM_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.EVERGLOOM_KEY),
-                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(2,0.1f, 2),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(10,0.5f, 6),
                         ModBlocks.EVERGLOOM_SAPLING));
+
+        register(context, DEAD_OAK_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(ModConfiguredFeatures.DEAD_OAK_KEY),
+                VegetationPlacedFeatures.treeModifiersWithWouldSurvive(PlacedFeatures.createCountExtraModifier(1,0.1f, 0),
+                        ModBlocks.DEAD_OAK_SAPLING));
 
     }
 

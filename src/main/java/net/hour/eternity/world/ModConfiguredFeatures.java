@@ -2,6 +2,7 @@ package net.hour.eternity.world;
 
 import net.hour.eternity.Eternity;
 import net.hour.eternity.block.ModBlocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -12,21 +13,32 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
+import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.trunk.BendingTrunkPlacer;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 
 public class ModConfiguredFeatures {
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> EVERGLOOM_KEY = registerKey("evergloom");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DEAD_OAK_KEY = registerKey("dead_oak");
 
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
         register(context, EVERGLOOM_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(ModBlocks.EVERGLOOM_LOG),
-                new BendingTrunkPlacer(4, 1, 1,5, ConstantIntProvider.create(1)),
+                new DarkOakTrunkPlacer(6, 1, 1),
                 BlockStateProvider.of(ModBlocks.EVERGLOOM_LEAVES),
-                new AcaciaFoliagePlacer(ConstantIntProvider.create(2),ConstantIntProvider.create(1)),
+                new DarkOakFoliagePlacer(ConstantIntProvider.create(0),ConstantIntProvider.create(0)),
+
+                new TwoLayersFeatureSize(1, 0, 2)).build());
+
+        register(context, DEAD_OAK_KEY, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(Blocks.OAK_LOG),
+                new LargeOakTrunkPlacer(5, 3, 3),
+                BlockStateProvider.of(Blocks.AIR),
+                new LargeOakFoliagePlacer(ConstantIntProvider.create(2),ConstantIntProvider.create(2),2),
 
                 new TwoLayersFeatureSize(1, 0, 2)).build());
     }

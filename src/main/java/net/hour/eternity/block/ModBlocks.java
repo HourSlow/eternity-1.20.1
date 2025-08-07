@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.hour.eternity.Eternity;
-import net.hour.eternity.item.ModItems;
+import net.hour.eternity.world.tree.DeadOakGenerator;
 import net.hour.eternity.world.tree.EvergloomSaplingGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -22,6 +22,9 @@ public class ModBlocks {
 
     public static final Block EVERGLOOM_SAPLING = registerBlock("evergloom_sapling",
             new SaplingBlock(new EvergloomSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).breakInstantly()));
+
+    public static final Block DEAD_OAK_SAPLING = registerBlock("dead_oak_sapling",
+            new SaplingBlock(new DeadOakGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).breakInstantly()));
 
 
 
@@ -58,6 +61,7 @@ public class ModBlocks {
         entries.add(STRIPPED_EVERGLOOM_LOG);
         entries.add(EVERGLOOM_LEAVES);
         entries.add(EVERGLOOM_SAPLING);
+        entries.add(DEAD_OAK_SAPLING);
     }
 
     private static Item registerBlockItem(String name, Block block) {
