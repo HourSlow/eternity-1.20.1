@@ -3,6 +3,7 @@ package net.hour.eternity.entity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.hour.eternity.Eternity;
 import net.hour.eternity.entity.custom.ForgottenEntity;
+import net.hour.eternity.entity.custom.LilGuyEntity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -15,6 +16,11 @@ public class ModEntities {
             new Identifier(Eternity.MOD_ID, "the_forgotten"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ForgottenEntity::new)
                     .dimensions(EntityDimensions.fixed(0.6f,1.9f)).build());
+
+    public static final EntityType<LilGuyEntity> LILGUY = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Eternity.MOD_ID, "lilguy"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, LilGuyEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.7f,0.7f)).build());
 
     public static void registerModEntities() {
         Eternity.LOGGER.debug(Eternity.MOD_ID, " - ModItems");

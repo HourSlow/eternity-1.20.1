@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
+import net.hour.eternity.entity.custom.LilGuyEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
@@ -47,8 +48,10 @@ public class Eternity implements ModInitializer {
 		ModEntities.registerModEntities();
 
 
+
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
+
 
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.STRIPPED_EVERGLOOM_LOG, 5, 5);
@@ -57,8 +60,13 @@ public class Eternity implements ModInitializer {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_PLANKS, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LEAVES, 30, 60);
 
+
 		FabricDefaultAttributeRegistry.register(ModEntities.THE_FORGOTTEN,
 				ForgottenEntity.createTheForgottenAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.LILGUY,
+                LilGuyEntity.createLilGuyAttributes());
+
+
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.world == null) {
@@ -73,8 +81,6 @@ public class Eternity implements ModInitializer {
 				GrayscaleProcessor.INSTANCE.setActive(false);
 			}
 		});
-
-
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
 			if (!alive && oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
 				ServerWorld customWorld = oldPlayer.getServer().getWorld(ModDimensions.LIMBO_DIM_KEY);

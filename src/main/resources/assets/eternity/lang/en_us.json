@@ -6,11 +6,12 @@
   "block.eternity.evergloom_planks": "Evergloom Planks",
   "block.eternity.evergloom_leaves": "Evergloom Leaves",
   "block.eternity.evergloom_sapling": "Evergloom Sapling",
+  "block.eternity.dead_oak_sapling": "Dead Oak Sapling",
 
+  "item.eternity.forgotten_spawn_egg": "Forgotten Spawn Egg",
+  "entity.eternity.the_forgotten": "The Forgotten",
+  "item.eternity.lilguy_spawn_egg": "Gretchet Spawn Egg",
+  "entity.eternity.lilguy": "Gretchet",
 
-    "item.eternity.forgotten_spawn_egg": "Forgotten Spawn Egg",
-
-    "entity.eternity.the_forgotten": "The Forgotten",
-
-    "itemGroup.eternity_tab": "Eternity"
+  "itemGroup.eternity_tab": "Eternity"
 }

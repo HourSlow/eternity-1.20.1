@@ -53,15 +53,18 @@ public class ModBlocks {
     }
 
 
-    private static void addBlockToIngredientItemGroup(FabricItemGroupEntries entries) {
+    private static void addBlockToNaturalItemGroup(FabricItemGroupEntries entries) {
+        entries.add(EVERGLOOM_SAPLING);
+        entries.add(DEAD_OAK_SAPLING);
+    }
+
+    private static void addBlockToBuildingBlocksItemGroup(FabricItemGroupEntries entries) {
         entries.add(EVERGLOOM_LOG);
         entries.add(EVERGLOOM_WOOD);
         entries.add(EVERGLOOM_PLANKS);
         entries.add(STRIPPED_EVERGLOOM_WOOD);
         entries.add(STRIPPED_EVERGLOOM_LOG);
         entries.add(EVERGLOOM_LEAVES);
-        entries.add(EVERGLOOM_SAPLING);
-        entries.add(DEAD_OAK_SAPLING);
     }
 
     private static Item registerBlockItem(String name, Block block) {
@@ -72,6 +75,7 @@ public class ModBlocks {
     public static void registerModBlocks() {
         Eternity.LOGGER.debug(Eternity.MOD_ID + " - ModBlocks");
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModBlocks::addBlockToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModBlocks::addBlockToNaturalItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ModBlocks::addBlockToBuildingBlocksItemGroup);
     }
 }

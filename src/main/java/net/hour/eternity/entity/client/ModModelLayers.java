@@ -7,4 +7,7 @@ import net.minecraft.util.Identifier;
 public class ModModelLayers {
     public static final EntityModelLayer THE_FORGOTTEN =
             new EntityModelLayer(new Identifier(Eternity.MOD_ID,"the_forgotten"),"main");
+
+    public static final EntityModelLayer LILGUY =
+            new EntityModelLayer(new Identifier(Eternity.MOD_ID,"lilguy"),"main");
 }
