@@ -8,24 +8,24 @@
         {
           "biome": "eternity:wastes",
           "parameters": {
-            "temperature": 2,
+            "temperature": 1.5,
             "humidity": 0,
-            "continentalness": 1,
+            "continentalness": -1,
             "erosion": -0.5,
             "weirdness": 0,
-            "depth": 0,
+            "depth": 0.2,
             "offset": 0
           }
         },
         {
           "biome": "eternity:eerie_forest",
           "parameters": {
-            "temperature": 0,
+            "temperature": 1,
             "humidity": 1,
             "continentalness": 1,
             "erosion": 0.3,
             "weirdness": 0,
-            "depth": 0,
+            "depth": 0.2,
             "offset": 0
           }
         },
@@ -33,11 +33,23 @@
           "biome": "minecraft:ocean",
           "parameters": {
             "temperature": 0,
-            "humidity": 0.5,
-            "continentalness": -2,
+            "humidity": 1,
+            "continentalness": -1.8,
             "erosion": 0,
             "weirdness": 0,
-            "depth": -1,
+            "depth": -2,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "eternity:cemetery",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 1,
+            "continentalness": -1,
+            "erosion": -0.7,
+            "weirdness": 0,
+            "depth": 0,
             "offset": 0
           }
         }

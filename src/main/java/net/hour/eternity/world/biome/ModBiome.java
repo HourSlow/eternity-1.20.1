@@ -22,11 +22,15 @@ public class ModBiome {
     public static final RegistryKey<Biome> EERIE_FOREST = RegistryKey.of(RegistryKeys.BIOME,
             new Identifier(Eternity.MOD_ID, "eerie_forest"));
 
+    public static final RegistryKey<Biome> CEMETERY = RegistryKey.of(RegistryKeys.BIOME,
+            new Identifier(Eternity.MOD_ID, "cemetery"));
+
 
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(WASTES, wastesBiome(context));
         context.register(EERIE_FOREST, eerieForestBiome(context));
+        context.register(CEMETERY, cemeteryBiome(context));
     }
 
 
@@ -35,7 +39,35 @@ public class ModBiome {
         DefaultBiomeFeatures.addSprings(builder);
     }
 
+    public static Biome cemeteryBiome(Registerable<Biome> context) {
+        SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
 
+        GenerationSettings.LookupBackedBuilder biomeBuilder =
+                new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
+                        context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        DefaultBiomeFeatures.addBirchTrees(biomeBuilder);
+
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
+
+
+        return new Biome.Builder()
+                .precipitation(true)
+                .downfall(1.0f)
+                .temperature(1.0f)
+                .generationSettings(biomeBuilder.build())
+                .spawnSettings(spawnBuilder.build())
+                .effects((new BiomeEffects.Builder())
+                        .waterColor(0xb1cfc7)
+                        .waterFogColor(0x92b5ad)
+                        .skyColor(0xc4c4c4)
+                        .grassColor(0xbcc6b2)
+                        .foliageColor(0xb7c6b5)
+                        .fogColor(0xcccccc)
+                        .moodSound(BiomeMoodSound.CAVE)
+                        .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.ENTITY_ENDERMITE_AMBIENT))).build())
+                .build();
+    }
 
     public static Biome eerieForestBiome(Registerable<Biome> context) {
         SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
@@ -52,8 +84,8 @@ public class ModBiome {
 
         return new Biome.Builder()
                 .precipitation(true)
-                .downfall(1.0f)
-                .temperature(0.0f)
+                .downfall(2.0f)
+                .temperature(1.0f)
                 .generationSettings(biomeBuilder.build())
                 .spawnSettings(spawnBuilder.build())
                 .effects((new BiomeEffects.Builder())
