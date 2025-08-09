@@ -20,9 +20,13 @@ public class ModItems {
     public static final Item LILGUY_SPAWN_EGG = registerItem("lilguy_spawn_egg",
             new SpawnEggItem(ModEntities.LILGUY, 0x2E7D32, 0xB7E8B4, new FabricItemSettings()));
 
+    public static final Item MENACE_SPAWN_EGG = registerItem("menace_spawn_egg",
+            new SpawnEggItem(ModEntities.MENACE, 0x8B4C4C, 0xA8A8A8, new FabricItemSettings()));
+
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.add(THE_FORGOTTEN_SPAWN_EGG);
         entries.add(LILGUY_SPAWN_EGG);
+        entries.add(MENACE_SPAWN_EGG);
     }
 
     private static Item registerItem(String name, Item item) {

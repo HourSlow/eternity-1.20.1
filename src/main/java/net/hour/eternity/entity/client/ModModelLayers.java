@@ -10,4 +10,7 @@ public class ModModelLayers {
 
     public static final EntityModelLayer LILGUY =
             new EntityModelLayer(new Identifier(Eternity.MOD_ID,"lilguy"),"main");
+
+    public static final EntityModelLayer MENACE =
+            new EntityModelLayer(new Identifier(Eternity.MOD_ID,"menace"),"main");
 }

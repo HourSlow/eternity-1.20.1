@@ -11,6 +11,7 @@ import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
 import net.hour.eternity.entity.custom.LilGuyEntity;
+import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
@@ -65,6 +66,8 @@ public class Eternity implements ModInitializer {
 				ForgottenEntity.createTheForgottenAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.LILGUY,
                 LilGuyEntity.createLilGuyAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.MENACE,
+               MenaceEntity.createTheMenaceAttributes());
 
 
 

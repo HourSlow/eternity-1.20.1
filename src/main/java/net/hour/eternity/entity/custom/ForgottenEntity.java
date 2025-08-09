@@ -121,4 +121,19 @@ public class ForgottenEntity extends HostileEntity {
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_ENDERMITE_DEATH;
     }
+
+    @Override
+    protected boolean isDisallowedInPeaceful() {
+        return true;
+    }
+
+    @Override
+    public boolean isFireImmune() {
+        return true;
+    }
+
+    @Override
+    public boolean isImmuneToExplosion() {
+        return true;
+    }
 }

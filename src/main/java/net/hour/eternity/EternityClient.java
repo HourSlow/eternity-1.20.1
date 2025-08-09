@@ -27,5 +27,8 @@ public class EternityClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.LILGUY, LilGuyModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.LILGUY, LilGuyRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.MENACE, MenaceModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.MENACE, MenaceRenderer::new);
     }
 }
