@@ -126,7 +126,7 @@ public class MenaceEntity extends HostileEntity {
 
     @Override
     public boolean isFireImmune() {
-        return true;
+        return false;
     }
 
     @Override
