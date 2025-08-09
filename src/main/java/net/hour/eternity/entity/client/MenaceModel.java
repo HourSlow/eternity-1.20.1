@@ -177,6 +177,7 @@ public class MenaceModel<T extends MenaceEntity> extends SinglePartEntityModel<T
 
         this.animateMovement(ModAnimations.WALK_MENACE, limbSwing, limbSwingAmount, 1.0f, 1.0f);
         this.updateAnimation(entity.idleAnimationStateMenace, ModAnimations.IDLE_MENACE, ageInTicks, 1f);
+        this.updateAnimation(entity.attackAnimationStateMenace, ModAnimations.ATTACK_MENACE, ageInTicks, 1f);
 	}
 
     private void setHeadAngles(float headYaw, float headPitch) {
