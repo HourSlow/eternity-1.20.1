@@ -15,10 +15,13 @@ import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
+import net.hour.eternity.util.packets.ModClientPackets;
+import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
@@ -28,6 +31,10 @@ public class Eternity implements ModInitializer {
 
 	public static final String MOD_ID = "eternity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+
+    public static final Identifier ORBITAL_VFX = new Identifier(Eternity.MOD_ID, "orbital_strike_vfx");
+    public static final Identifier ORBITAL_IMPACT = new Identifier(Eternity.MOD_ID, "orbital_strike_impact");
 
     //---Useful Commands in Minecraft for testing Eternity:
 
@@ -48,7 +55,8 @@ public class Eternity implements ModInitializer {
 
 		ModEntities.registerModEntities();
 
-
+        ModPackets.registerPackets();
+        ModClientPackets.registerClientPackets();
 
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
@@ -84,6 +92,8 @@ public class Eternity implements ModInitializer {
 				GrayscaleProcessor.INSTANCE.setActive(false);
 			}
 		});
+
+
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
 			if (!alive && oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
 				ServerWorld customWorld = oldPlayer.getServer().getWorld(ModDimensions.LIMBO_DIM_KEY);
@@ -95,6 +105,7 @@ public class Eternity implements ModInitializer {
 				}
 			}
 		});
+
 
 	}
 }

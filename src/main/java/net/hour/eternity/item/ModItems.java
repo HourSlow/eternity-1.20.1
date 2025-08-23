@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hour.eternity.Eternity;
 import net.hour.eternity.entity.ModEntities;
+import net.hour.eternity.item.custom.OrbitalLaserItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -13,6 +14,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
+
+
+    public static final Item SUNDIAL = registerItem("sundial",
+            new OrbitalLaserItem(new FabricItemSettings()));
+
 
     public static final Item THE_FORGOTTEN_SPAWN_EGG = registerItem("forgotten_spawn_egg",
             new SpawnEggItem(ModEntities.THE_FORGOTTEN, 0xFFFFFF, 0xD3D3D3, new FabricItemSettings()));
