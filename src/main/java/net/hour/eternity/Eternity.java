@@ -15,6 +15,8 @@ import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
+import net.hour.eternity.util.inv.InventorySwapHandler;
+import net.hour.eternity.util.inv.RespawnCopyHandler;
 import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
@@ -57,6 +59,9 @@ public class Eternity implements ModInitializer {
 
         ModPackets.registerPackets();
         ModClientPackets.registerClientPackets();
+
+        InventorySwapHandler.register();
+        RespawnCopyHandler.register();
 
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
