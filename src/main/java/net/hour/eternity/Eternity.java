@@ -15,6 +15,7 @@ import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
+import net.hour.eternity.util.TarrHostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
 import net.hour.eternity.util.packets.ModClientPackets;
@@ -56,6 +57,7 @@ public class Eternity implements ModInitializer {
 		ModDimensions.register();
 
 		ModEntities.registerModEntities();
+        TarrHostUtil.register();
 
         ModPackets.registerPackets();
         ModClientPackets.registerClientPackets();
