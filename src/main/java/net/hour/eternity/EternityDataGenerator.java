@@ -19,6 +19,7 @@ public class EternityDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
+        pack.addProvider(ModRecipeProvider::new);
 	}
 
 	@Override
