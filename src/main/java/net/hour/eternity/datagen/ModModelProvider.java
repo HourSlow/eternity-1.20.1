@@ -7,6 +7,7 @@ import net.hour.eternity.item.ModItems;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Model;
+import net.minecraft.data.client.Models;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
@@ -30,6 +31,10 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+
+        itemModelGenerator.register(ModItems.MIRROR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SUNDIAL, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ETERNAL_LANTERN, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.THE_FORGOTTEN_SPAWN_EGG,
                 new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));

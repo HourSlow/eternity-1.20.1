@@ -1,4 +1,8 @@
 {
+  "item.eternity.sundial": "SunDial",
+  "item.eternity.mirror": "Eternal Mirror",
+  "item.eternity.eternal_lantern": "Cursed Lantern",
+
   "block.eternity.evergloom_log": "Evergloom Log",
   "block.eternity.evergloom_wood": "Evergloom Wood",
   "block.eternity.stripped_evergloom_log": "Stripped Evergloom Log",

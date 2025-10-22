@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.hour.eternity.Eternity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -15,9 +14,10 @@ public class ModItemGroup {
     public static final ItemGroup ETERNITY_TAB = Registry.register(Registries.ITEM_GROUP,
             new Identifier(Eternity.MOD_ID, "eternity_tab"),
             FabricItemGroup.builder().displayName(Text.translatable("itemGroup.eternity_tab"))
-                    .icon(() -> new ItemStack(Items.ACACIA_BOAT)).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModItems.MIRROR)).entries((displayContext, entries) -> {
 
                         entries.add(ModItems.SUNDIAL);
+                        entries.add(ModItems.MIRROR);
 
                     }).build());
 
