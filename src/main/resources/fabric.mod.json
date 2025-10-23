@@ -3,11 +3,10 @@
 	"id": "eternity",
 	"version": "${version}",
 	"name": "Eternity",
-	"description": "Power, Deals And Destruction.",
+	"description": "It's Eternity In There!",
 	"authors": [
 		"Tarr_Mischief",
-		"HourSlow",
-		"TitanOfTitiz"
+		"HourSlow"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/eternity",

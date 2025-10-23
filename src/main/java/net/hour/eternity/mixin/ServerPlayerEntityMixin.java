@@ -12,23 +12,18 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolder {
 
-    @Unique private NbtList limbo$savedOutside = null; // saved outside inventory when entering LIMBO
+    @Unique private NbtList limbo$savedOutside = null; // saved overworld inventory when entering LIMBO
     @Unique private NbtList limbo$savedLimbo   = null; // saved LIMBO inventory when leaving LIMBO
 
-    // persist into player .dat
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void limbo$writeCustomData(NbtCompound nbt, CallbackInfo ci) {
         if (limbo$savedOutside != null) nbt.put("LimboSavedOutsideInventory", limbo$savedOutside);
         if (limbo$savedLimbo != null)   nbt.put("LimboSavedLimboInventory", limbo$savedLimbo);
     }
 
-    // read from player .dat
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     private void limbo$readCustomData(NbtCompound nbt, CallbackInfo ci) {
         if (nbt.contains("LimboSavedOutsideInventory", NbtElement.LIST_TYPE)) {
@@ -44,12 +39,11 @@ public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolde
         }
     }
 
-    // interface impls
     @Unique
     @Override
     public void saveOutsideInventory(PlayerInventory inv) {
         NbtList list = new NbtList();
-        inv.writeNbt(list); // PlayerInventory uses NbtList
+        inv.writeNbt(list);
         limbo$savedOutside = list;
     }
 
