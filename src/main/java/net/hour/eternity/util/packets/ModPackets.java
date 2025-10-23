@@ -12,7 +12,7 @@ public class ModPackets {
         ServerPlayNetworking.registerGlobalReceiver(BEAM_SPAWN_ID, (server, player, handler, buf, responseSender) -> {
             BeamSpawnPacket packet = new BeamSpawnPacket(buf);
             server.execute(() -> {
-                // Server-side handling if needed
+                // Server-side handling
             });
         });
     }

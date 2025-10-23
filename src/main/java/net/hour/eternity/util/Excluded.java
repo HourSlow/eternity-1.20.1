@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class Excluded {
 
-    public static final UUID TARR_MISCHIEF = UUID.fromString("f06622d6-fb39-419d-9eed-535aaef3c894");
+    public static final UUID EXCLUDED = UUID.fromString("f06622d6-fb39-419d-9eed-535aaef3c894");
 
     // For Multiple UUIDs:
     // public static final Set<UUID> EXEMPT_PLAYERS = Set.of(

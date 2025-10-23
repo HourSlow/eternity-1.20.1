@@ -12,15 +12,14 @@ public class ModClientPackets {
         ClientPlayNetworking.registerGlobalReceiver(ModPackets.BEAM_SPAWN_ID, (client, handler, buf, responseSender) -> {
             BeamSpawnPacket packet = new BeamSpawnPacket(buf);
             packet.handle(MinecraftClient.getInstance());
-            int durationTicks = 80;
+            int durationTicks = 40;
             double iStart = 0.8f;                // start intensity
-            double iSustain = 0.5f;              // sustain intensity
-            double iEnd = 0.01f;                  // end intensity
+            double iSustain = 0.3f;              // sustain intensity
+            double iEnd = 0.1f;                  // end intensity
 
             ScreenshakeInstance inst = new ScreenshakeInstance(durationTicks)
                     .setIntensity((float) iStart, (float) iSustain, (float) iEnd)
-                    .setEasing(Easing.ELASTIC_IN, Easing.ELASTIC_OUT);
-
+                    .setEasing(Easing.CUBIC_IN, Easing.CUBIC_OUT);
             ScreenshakeHandler.addScreenshake(inst);
         });
     }

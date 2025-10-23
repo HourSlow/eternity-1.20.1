@@ -50,15 +50,30 @@ public class BeamSpawnPacket {
     }
 
     public static void spawnBeamParticles(World level, Vec3d pos, Color startingColor, Color endingColor) {
-        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.STAR_PARTICLE)
                 .setScaleData(GenericParticleData.create(1f, 0.5f, 0f).build())
                 .setTransparencyData(GenericParticleData.create(1f, 0f).build())
-                .setColorData(ColorParticleData.create(startingColor, endingColor).setCoefficient(3.5f).setEasing(Easing.BOUNCE_IN_OUT).build())
+                .setColorData(ColorParticleData.create(startingColor, endingColor).setCoefficient(3.5f).setEasing(Easing.CUBIC_OUT).build())
                 .setScaleData(GenericParticleData.create(5f, 5f).build())
-                .setLifetime(210)
+                .setLifetime(80)
                 .repeatRandomFace(level, BlockPos.ofFloored(pos), 50)
                 .enableNoClip()
+                .disableCull()
+                .enableForcedSpawn()
                 .spawn(level, pos.x, pos.y, pos.z);
+
+        WorldParticleBuilder.create(LodestoneParticleRegistry.WISP_PARTICLE)
+                .setScaleData(GenericParticleData.create(1f, 0.5f, 0f).build())
+                .setTransparencyData(GenericParticleData.create(0.5f, 0f).build())
+                .setColorData(ColorParticleData.create(startingColor, endingColor).setCoefficient(3.5f).setEasing(Easing.CUBIC_OUT).build())
+                .setScaleData(GenericParticleData.create(4f, 4f).build())
+                .setLifetime(40)
+                .repeatRandomFace(level, BlockPos.ofFloored(pos), 50)
+                .enableNoClip()
+                .disableCull()
+                .enableForcedSpawn()
+                .spawn(level, pos.x, pos.y, pos.z);
+
 
     }
 }

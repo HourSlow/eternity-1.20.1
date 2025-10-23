@@ -7,7 +7,7 @@ import net.hour.eternity.world.dimension.ModDimensions;
 public final class RespawnCopyHandler {
     public static void register() {
         ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
-            if (oldPlayer.getUuid().equals(Excluded.TARR_MISCHIEF)) {
+            if (oldPlayer.getUuid().equals(Excluded.EXCLUDED)) {
                 ((DimensionInventoryHolder) newPlayer).copyFrom((DimensionInventoryHolder) oldPlayer);
                 return;
             }
@@ -16,7 +16,6 @@ public final class RespawnCopyHandler {
             DimensionInventoryHolder oldHolder = (DimensionInventoryHolder) oldPlayer;
 
             if (oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
-                // Died in LIMBO -> clear saved data for new player
                 newHolder.clearSavedInventories();
                 return;
             }

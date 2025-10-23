@@ -31,14 +31,14 @@ public class OrbitalLaserItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         if (!world.isClient()) {
-            BlockHitResult hitResult = raycast(world, player, 30.0); // 50 block max distance
+            BlockHitResult hitResult = raycast(world, player, 50.0);
 
             if (hitResult.getType() == HitResult.Type.BLOCK) {
                 BlockPos blockPos = hitResult.getBlockPos();
                 Vec3d targetPos = Vec3d.ofCenter(blockPos);
 
-                Color startingColor = new Color(205, 109, 0);
-                Color endingColor = new Color(96, 33, 1);
+                Color startingColor = new Color(200, 82, 0);
+                Color endingColor = new Color(105, 17, 3);
                 BeamSpawnPacket packet = new BeamSpawnPacket(targetPos, startingColor.getRGB(), endingColor.getRGB());
                 PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
                 packet.toBytes(buf);
