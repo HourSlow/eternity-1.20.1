@@ -1,27 +1,32 @@
-package net.hour.eternity.util;
+package net.hour.eternity.util.host;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.UUID;
-
-public class TarrHostUtil {
-
-    private static final UUID GODMODE_UUID = UUID.fromString("f06622d6-fb39-419d-9eed-535aaef3c894");
+public class HostUtil {
 
     public static void register() {
+
         ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
             if (entity instanceof ServerPlayerEntity player) {
-                if (player.getUuid().equals(GODMODE_UUID)) {
+
+                var storage = HostStorageManager.get(player.getServer());
+
+                if (storage.hosts.contains(player.getUuid())) {
                     return false;
                 }
             }
             return true;
         });
+
         ServerTickEvents.END_SERVER_TICK.register(server -> {
+            var storage = HostStorageManager.get(server);
+
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                if (player.getUuid().equals(GODMODE_UUID)) {
+
+                if (storage.hosts.contains(player.getUuid())) {
+
                     if (!player.getAbilities().allowFlying) {
                         player.getAbilities().allowFlying = true;
                         player.sendAbilitiesUpdate();

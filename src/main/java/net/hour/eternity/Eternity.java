@@ -3,11 +3,13 @@ package net.hour.eternity;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
+import net.hour.eternity.command.HostCommand;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
 import net.hour.eternity.entity.custom.LilGuyEntity;
@@ -15,7 +17,7 @@ import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
-import net.hour.eternity.util.TarrHostUtil;
+import net.hour.eternity.util.host.HostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
 import net.hour.eternity.util.packets.ModClientPackets;
@@ -57,7 +59,7 @@ public class Eternity implements ModInitializer {
 		ModDimensions.register();
 
 		ModEntities.registerModEntities();
-        TarrHostUtil.register();
+        HostUtil.register();
 
         ModPackets.registerPackets();
         ModClientPackets.registerClientPackets();
@@ -83,6 +85,11 @@ public class Eternity implements ModInitializer {
                 LilGuyEntity.createLilGuyAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.MENACE,
                MenaceEntity.createTheMenaceAttributes());
+
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+                HostCommand.register(dispatcher)
+        );
 
 
 
