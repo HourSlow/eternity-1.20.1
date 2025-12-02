@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CustomCapeMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "MixinLivingEntityRenderer",
+    "MixinEntity"
   ],
   "client": [
     "ItemRendererAccessor",

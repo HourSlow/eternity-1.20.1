@@ -17,6 +17,7 @@ import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
+import net.hour.eternity.util.host.HostInvisibilityManager;
 import net.hour.eternity.util.host.HostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
@@ -49,6 +50,7 @@ public class Eternity implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+        HostInvisibilityManager.register();
 
         ModBlocks.registerModBlocks();
 

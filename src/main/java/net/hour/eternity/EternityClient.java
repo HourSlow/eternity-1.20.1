@@ -8,6 +8,7 @@ import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.client.*;
 import net.hour.eternity.shader.GrayscaleProcessor;
+import net.hour.eternity.util.host.HostInvisibilityManager;
 import net.minecraft.client.render.RenderLayer;
 import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
@@ -15,6 +16,8 @@ public class EternityClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        HostInvisibilityManager.registerClient();
+
         PostProcessHandler.addInstance(GrayscaleProcessor.INSTANCE);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EVERGLOOM_LEAVES, RenderLayer.getCutout());
