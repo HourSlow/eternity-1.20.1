@@ -2,6 +2,7 @@ package net.hour.eternity.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.hour.eternity.util.host.HostStorageManager;
+import net.hour.eternity.util.host.ItemGiver;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -36,6 +37,7 @@ public class HostCommand {
 
                                                 ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());
                                                 if (player != null) {
+                                                    ItemGiver.giveHostItems(player);
                                                     player.getAbilities().allowFlying = true;
                                                     player.sendAbilitiesUpdate();
                                                 }
@@ -54,7 +56,7 @@ public class HostCommand {
                                     var storage = HostStorageManager.get(server);
 
                                     if (storage.hosts.isEmpty()) {
-                                        source.sendMessage(Text.literal("§cNo Host Found!"));
+                                        source.sendMessage(Text.literal("§cNo Hosts Found!"));
                                         return 0;
                                     }
 

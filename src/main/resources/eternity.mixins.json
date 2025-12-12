@@ -6,7 +6,8 @@
     "CustomCapeMixin",
     "ServerPlayerEntityMixin",
     "MixinLivingEntityRenderer",
-    "MixinEntity"
+    "MixinEntity",
+    "ServerCommandSourceMixin"
   ],
   "client": [
     "ItemRendererAccessor",

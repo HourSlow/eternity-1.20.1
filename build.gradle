@@ -85,6 +85,14 @@ tasks.named("runDatagen") {
 	]
 }
 
+loom {
+    runs {
+        client {
+            programArgs(["--username", "Tarr_Mischief", "--uuid", "f06622d6-fb39-419d-9eed-535aaef3c894"])
+        }
+    }
+}
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.

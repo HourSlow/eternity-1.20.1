@@ -18,7 +18,7 @@ import net.minecraft.world.ServerWorldAccess;
 public class ModEntitySpawns {
     public static void addSpawns() {
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(ModBiome.WASTES),
-                SpawnGroup.MONSTER, ModEntities.THE_FORGOTTEN, 20,1,1);
+                SpawnGroup.MONSTER, ModEntities.THE_FORGOTTEN, 1,1,1);
 
         SpawnRestriction.register(ModEntities.THE_FORGOTTEN, SpawnRestriction.Location.ON_GROUND,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);

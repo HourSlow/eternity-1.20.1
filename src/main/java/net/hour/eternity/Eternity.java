@@ -18,6 +18,8 @@ import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.util.host.HostInvisibilityManager;
+import net.hour.eternity.util.host.HostStorage;
+import net.hour.eternity.util.host.HostStorageManager;
 import net.hour.eternity.util.host.HostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
@@ -25,7 +27,10 @@ import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -68,6 +73,7 @@ public class Eternity implements ModInitializer {
 
         InventorySwapHandler.register();
         RespawnCopyHandler.register();
+
 
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
@@ -124,4 +130,21 @@ public class Eternity implements ModInitializer {
 
 
 	}
+
+    public static MinecraftServer SERVER_INSTANCE;
+
+    public static boolean isHost(ServerPlayerEntity player) {
+        if (SERVER_INSTANCE == null) {
+            return false;
+        }
+        HostStorage storage = HostStorageManager.get(SERVER_INSTANCE);
+        return storage.hosts.contains(player.getUuid());
+    }
+    public static boolean isClientHost(ClientPlayerEntity player) {
+        if (SERVER_INSTANCE == null) {
+            return false;
+        }
+        HostStorage storage = HostStorageManager.get(SERVER_INSTANCE);
+        return storage.hosts.contains(player.getUuid());
+    }
 }
