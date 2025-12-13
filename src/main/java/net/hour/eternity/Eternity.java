@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -27,6 +28,8 @@ import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
+import net.hour.eternity.world.structure.CenterStructureState;
+import net.hour.eternity.world.structure.StructurePlacer;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
@@ -129,7 +132,36 @@ public class Eternity implements ModInitializer {
 		});
 
 
+        ServerWorldEvents.LOAD.register((server, world) -> {
+            if (world.getRegistryKey() != net.minecraft.world.World.OVERWORLD) {
+                return;
+            }
+            CenterStructureState state = CenterStructureState.getState(world);
+
+            if (!state.isSpawned) {
+                int centerX = 0;
+                int centerZ = 0;
+
+                int centerY = world.getChunk(centerX >> 4, centerZ >> 4)
+                        .getHeightmap(net.minecraft.world.Heightmap.Type.WORLD_SURFACE)
+                        .get(centerX & 15, centerZ & 15);
+
+                BlockPos spawnPos = new BlockPos(centerX, centerY - 80, centerZ);
+
+                StructurePlacer.placeStructure(world, spawnPos);
+
+                state.isSpawned = true;
+                state.markDirty();
+            }
+        });
+
+
+
+
+
 	}
+
+
 
     public static MinecraftServer SERVER_INSTANCE;
 
