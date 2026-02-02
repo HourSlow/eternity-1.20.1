@@ -1,5 +1,6 @@
 package net.hour.eternity.item.custom;
 
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 
 public class LimboTPItem extends Item {
@@ -34,14 +36,15 @@ public class LimboTPItem extends Item {
             ServerWorld targetWorld = currentWorld.getServer().getWorld(targetKey);
 
             if (targetWorld != null) {
-                Vec3d pos = entity.getPos();
-                Entity newEntity = entity.moveToWorld(targetWorld);
-                if (newEntity != null) {
-                    newEntity.refreshPositionAndAngles(pos.x, pos.y, pos.z, entity.getYaw(), entity.getPitch());
-                }
+                TeleportTarget teleportTarget = new TeleportTarget(
+                        entity.getPos(),
+                        entity.getVelocity(),
+                        entity.getYaw(),
+                        entity.getPitch()
+                );
+                FabricDimensions.teleport(entity, targetWorld, teleportTarget);
             }
         }
-
         return ActionResult.SUCCESS;
     }
 
