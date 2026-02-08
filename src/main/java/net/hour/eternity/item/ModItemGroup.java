@@ -2,6 +2,7 @@ package net.hour.eternity.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.hour.eternity.Eternity;
+import net.hour.eternity.block.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -16,8 +17,12 @@ public class ModItemGroup {
             FabricItemGroup.builder().displayName(Text.translatable("itemGroup.eternity_tab"))
                     .icon(() -> new ItemStack(ModItems.MIRROR)).entries((displayContext, entries) -> {
 
-                        entries.add(ModItems.SUNDIAL);
                         entries.add(ModItems.MIRROR);
+                        entries.add(ModItems.SUS_ITEM);
+                        entries.add(ModBlocks.STATUE);
+
+                        entries.add(ModItems.SUNDIAL);
+                        entries.add(ModItems.TESTDIAL);
 
                     }).build());
 

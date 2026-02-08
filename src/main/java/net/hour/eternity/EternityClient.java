@@ -24,6 +24,8 @@ public class EternityClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EVERGLOOM_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DEAD_OAK_SAPLING, RenderLayer.getCutout());
 
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STATUE, RenderLayer.getCutout());
+
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.THE_FORGOTTEN, ForgottenModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.THE_FORGOTTEN, ForgottenRenderer::new);
@@ -33,5 +35,7 @@ public class EternityClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.MENACE, MenaceModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.MENACE, MenaceRenderer::new);
+
+        EntityRendererRegistry.register(ModEntities.STRIKE, OrbitalStrikeRenderer::new);
     }
 }

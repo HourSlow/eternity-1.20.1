@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.hour.eternity.Eternity;
+import net.hour.eternity.block.custom.StatueBlock;
+import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.world.tree.DeadOakGenerator;
 import net.hour.eternity.world.tree.EvergloomSaplingGenerator;
 import net.minecraft.block.*;
@@ -16,6 +18,12 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
+
+
+    public static final Block STATUE = registerBlock("statue_tarr",
+            new StatueBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().dropsNothing()));
+
+
 
     public static final Block EVERGLOOM_SAPLING = registerBlock("evergloom_sapling",
             new SaplingBlock(new EvergloomSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING).breakInstantly()));

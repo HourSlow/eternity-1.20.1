@@ -5,9 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hour.eternity.Eternity;
 import net.hour.eternity.entity.ModEntities;
-import net.hour.eternity.item.custom.LimboTPItem;
-import net.hour.eternity.item.custom.OrbitalLaserItem;
-import net.hour.eternity.item.custom.RevealItem;
+import net.hour.eternity.item.custom.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SpawnEggItem;
@@ -20,6 +18,12 @@ public class ModItems {
 
     public static final Item SUNDIAL = registerItem("sundial",
             new OrbitalLaserItem(new FabricItemSettings().maxCount(1)));
+
+    public static final Item TESTDIAL = registerItem("testdial",
+            new BeaconBeamItem(new FabricItemSettings().maxCount(1)));
+
+    public static final Item SUS_ITEM = registerItem("sus_item",
+            new SusItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item MIRROR = registerItem("mirror",
             new LimboTPItem(new FabricItemSettings().maxCount(1)));

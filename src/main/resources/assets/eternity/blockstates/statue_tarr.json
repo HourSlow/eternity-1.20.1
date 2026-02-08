@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "eternity:block/statue_tarr"},
+    "facing=east":  {"model": "eternity:block/statue_tarr", "y": 90},
+    "facing=south":  {"model": "eternity:block/statue_tarr", "y": 180},
+    "facing=west":  {"model": "eternity:block/statue_tarr", "y": 270}
+  }
+}

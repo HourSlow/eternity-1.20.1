@@ -30,6 +30,7 @@ import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.hour.eternity.world.structure.CenterStructureState;
 import net.hour.eternity.world.structure.StructurePlacer;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
@@ -40,6 +41,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
 
 public class Eternity implements ModInitializer {
 
@@ -156,11 +159,7 @@ public class Eternity implements ModInitializer {
 
 
 
-
-
 	}
-
-
 
     public static MinecraftServer SERVER_INSTANCE;
 

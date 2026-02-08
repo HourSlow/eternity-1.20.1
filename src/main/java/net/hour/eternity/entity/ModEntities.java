@@ -5,6 +5,7 @@ import net.hour.eternity.Eternity;
 import net.hour.eternity.entity.custom.ForgottenEntity;
 import net.hour.eternity.entity.custom.LilGuyEntity;
 import net.hour.eternity.entity.custom.MenaceEntity;
+import net.hour.eternity.entity.custom.OrbitalStrikeEntity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -28,6 +29,11 @@ public class ModEntities {
             new Identifier(Eternity.MOD_ID, "menace"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MenaceEntity::new)
                     .dimensions(EntityDimensions.fixed(0.7f,4.2f)).build());
+
+    public static final EntityType<OrbitalStrikeEntity> STRIKE = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Eternity.MOD_ID, "strike"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC, OrbitalStrikeEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.1f,0.1f)).build());
 
 
 
