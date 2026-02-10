@@ -12,6 +12,7 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 public class ModItems {
 
@@ -23,7 +24,7 @@ public class ModItems {
             new BeaconBeamItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item SUS_ITEM = registerItem("sus_item",
-            new SusItem(new FabricItemSettings().maxCount(1)));
+            new SusItem(new FabricItemSettings().maxCount(1).fireproof().rarity(Rarity.EPIC)));
 
     public static final Item MIRROR = registerItem("mirror",
             new LimboTPItem(new FabricItemSettings().maxCount(1)));

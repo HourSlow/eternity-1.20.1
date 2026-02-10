@@ -101,10 +101,10 @@ public class MenaceEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createTheMenaceAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 500)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 20)
-                .add(EntityAttributes.GENERIC_ARMOR, 500f)
+                .add(EntityAttributes.GENERIC_ARMOR, 0f)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 99999);
     }
 

@@ -24,6 +24,7 @@ import net.hour.eternity.util.host.HostStorageManager;
 import net.hour.eternity.util.host.HostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
+import net.hour.eternity.util.loottable.ModLootTableModifier;
 import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
@@ -73,6 +74,7 @@ public class Eternity implements ModInitializer {
 
 		ModEntities.registerModEntities();
         HostUtil.register();
+        ModLootTableModifier.modifyLootTables();
 
         ModPackets.registerPackets();
         ModClientPackets.registerClientPackets();
