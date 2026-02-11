@@ -32,6 +32,9 @@ public class ModItems {
     public static final Item ETERNAL_LANTERN = registerItem("eternal_lantern",
             new RevealItem(new FabricItemSettings().maxCount(1)));
 
+    public static final Item MACE = registerItem("mace",
+            new MaceItem(new FabricItemSettings().maxCount(1).fireproof().rarity(Rarity.EPIC)));
+
 
 
     public static final Item THE_FORGOTTEN_SPAWN_EGG = registerItem("forgotten_spawn_egg",

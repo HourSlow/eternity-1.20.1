@@ -32,9 +32,10 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
-        itemModelGenerator.register(ModItems.MIRROR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MIRROR, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SUNDIAL, Models.GENERATED);
         itemModelGenerator.register(ModItems.SUS_ITEM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MACE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.ETERNAL_LANTERN, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.THE_FORGOTTEN_SPAWN_EGG,
