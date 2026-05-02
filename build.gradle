@@ -61,7 +61,7 @@ dependencies {
 	}
 	modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
 
-	modImplementation "xyz.nucleoid:disguiselib-fabric:${project.disguiselib_version}"
+	include ("xyz.nucleoid:disguiselib-fabric:${project.disguiselib_version}")
 }
 
 processResources {
