@@ -13,7 +13,7 @@ public class HostCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 CommandManager.literal("host")
-                        .requires(src -> src.hasPermissionLevel(3))
+                        .requires(src -> src.hasPermissionLevel(2))
                         .then(CommandManager.literal("set")
                                 .then(CommandManager.argument("player", net.minecraft.command.argument.GameProfileArgumentType.gameProfile())
                                         .executes(ctx -> {

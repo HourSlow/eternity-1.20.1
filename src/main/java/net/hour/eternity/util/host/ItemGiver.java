@@ -8,10 +8,10 @@ public class ItemGiver {
 
     public static void giveHostItems(ServerPlayerEntity player) {
 
-        ItemStack item1 = new ItemStack(ModItems.MIRROR);
+        //ItemStack item1 = new ItemStack(ModItems.MIRROR);
         //ItemStack item2 = new ItemStack(ModItems.SUNDIAL);
 
-        player.getInventory().offerOrDrop(item1);
+        //player.getInventory().offerOrDrop(item1);
         //player.getInventory().offerOrDrop(item2);
     }
 }

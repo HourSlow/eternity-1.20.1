@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
+import net.hour.eternity.command.DisguiseCommand;
 import net.hour.eternity.command.HostCommand;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
@@ -73,7 +74,10 @@ public class Eternity implements ModInitializer {
 		ModDimensions.register();
 
 		ModEntities.registerModEntities();
+
         HostUtil.register();
+
+
         ModLootTableModifier.modifyLootTables();
 
         ModPackets.registerPackets();
@@ -105,6 +109,9 @@ public class Eternity implements ModInitializer {
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 HostCommand.register(dispatcher)
+        );
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+                DisguiseCommand.register(dispatcher, registryAccess)
         );
 
 

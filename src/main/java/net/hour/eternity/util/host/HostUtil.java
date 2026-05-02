@@ -20,19 +20,19 @@ public class HostUtil {
             return true;
         });
 
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            var storage = HostStorageManager.get(server);
-
-            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-
-                if (storage.hosts.contains(player.getUuid())) {
-
-                    if (!player.getAbilities().allowFlying) {
-                        player.getAbilities().allowFlying = true;
-                        player.sendAbilitiesUpdate();
-                    }
-                }
-            }
-        });
+//        ServerTickEvents.END_SERVER_TICK.register(server -> {
+//            var storage = HostStorageManager.get(server);
+//
+//            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+//
+//                if (storage.hosts.contains(player.getUuid())) {
+//
+//                    if (!player.getAbilities().allowFlying) {
+//                        player.getAbilities().allowFlying = true;
+//                        player.sendAbilitiesUpdate();
+//                    }
+//                }
+//            }
+//        });
     }
 }

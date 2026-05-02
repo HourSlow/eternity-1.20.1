@@ -16,6 +16,10 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	maven {
+		url 'https://maven.nucleoid.xyz'
+	}
+
 	maven { url = 'https://maven.minecraftforge.net/' }
 	maven {url = 'https://maven.blamejared.com/' }
 	maven {url = "https://mvn.devos.one/releases/" }
@@ -56,6 +60,8 @@ dependencies {
 		modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
 	}
 	modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
+
+	modImplementation "xyz.nucleoid:disguiselib-fabric:${project.disguiselib_version}"
 }
 
 processResources {
