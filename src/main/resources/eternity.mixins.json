@@ -7,12 +7,14 @@
     "ServerPlayerEntityMixin",
     "MixinLivingEntityRenderer",
     "MixinEntity",
-    "ServerCommandSourceMixin"
+    "ServerCommandSourceMixin",
+    "PostEffectPassMixin"
   ],
   "client": [
     "ItemRendererAccessor",
     "ItemRendererMixin",
-    "ModelLoaderMixin"
+    "ModelLoaderMixin",
+    "ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.hour.eternity.Eternity;
+import net.hour.eternity.block.custom.EtherBlock;
 import net.hour.eternity.block.custom.StatueBlock;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.world.tree.DeadOakGenerator;
@@ -22,6 +23,9 @@ public class ModBlocks {
 
     public static final Block STATUE = registerBlock("statue_tarr",
             new StatueBlock(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().dropsNothing()));
+
+    public static final Block WHITE_ETHER = registerBlock("white_ether",
+            new EtherBlock(FabricBlockSettings.copyOf(Blocks.SEA_LANTERN).dropsNothing().luminance(15).dropsNothing().strength(-1f)));
 
 
 
@@ -70,6 +74,7 @@ public class ModBlocks {
         entries.add(STRIPPED_EVERGLOOM_WOOD);
         entries.add(STRIPPED_EVERGLOOM_LOG);
         entries.add(EVERGLOOM_LEAVES);
+        entries.add(WHITE_ETHER);
     }
 
     private static Item registerBlockItem(String name, Block block) {

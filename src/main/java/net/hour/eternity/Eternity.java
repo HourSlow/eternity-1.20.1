@@ -6,11 +6,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.command.DisguiseCommand;
+import net.hour.eternity.command.DreamscapeCommand;
 import net.hour.eternity.command.HostCommand;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
@@ -18,6 +21,7 @@ import net.hour.eternity.entity.custom.LilGuyEntity;
 import net.hour.eternity.entity.custom.MenaceEntity;
 import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
+import net.hour.eternity.util.DreamerEntity;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.util.host.HostInvisibilityManager;
 import net.hour.eternity.util.host.HostStorage;
@@ -32,26 +36,24 @@ import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.hour.eternity.world.structure.CenterStructureState;
 import net.hour.eternity.world.structure.StructurePlacer;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
-
 public class Eternity implements ModInitializer {
 
 	public static final String MOD_ID = "eternity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-
+    public static final Identifier DREAM_SYNC_PACKET = new Identifier(MOD_ID, "dream_sync");
     public static final Identifier ORBITAL_VFX = new Identifier(Eternity.MOD_ID, "orbital_strike_vfx");
     public static final Identifier ORBITAL_IMPACT = new Identifier(Eternity.MOD_ID, "orbital_strike_impact");
 
@@ -106,6 +108,7 @@ public class Eternity implements ModInitializer {
         FabricDefaultAttributeRegistry.register(ModEntities.MENACE,
                MenaceEntity.createTheMenaceAttributes());
 
+        // Command Registration Events
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 HostCommand.register(dispatcher)
@@ -113,8 +116,27 @@ public class Eternity implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 DisguiseCommand.register(dispatcher, registryAccess)
         );
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            DreamscapeCommand.register(dispatcher);
+        });
 
+        //DREAMSCAPE Event Handlers
 
+        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
+            if (((DreamerEntity) player).isDreaming()) {
+                return ActionResult.FAIL;
+            }
+            return ActionResult.PASS;
+        });
+
+        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+            if (((DreamerEntity) player).isDreaming()) {
+                return ActionResult.FAIL;
+            }
+            return ActionResult.PASS;
+        });
+
+        //Grayscale Post Processing Handler
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.world == null) {

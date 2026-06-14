@@ -20,7 +20,8 @@ public class ModItemGroup {
                         entries.add(ModItems.MIRROR);
                         entries.add(ModItems.SUS_ITEM);
                         entries.add(ModBlocks.STATUE);
-
+                        entries.add(ModItems.ETERNAL_LANTERN);
+                        entries.add(ModItems.MACE);
                         entries.add(ModItems.SUNDIAL);
                         entries.add(ModItems.TESTDIAL);
 

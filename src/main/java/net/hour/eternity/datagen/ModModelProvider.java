@@ -25,6 +25,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_EVERGLOOM_LOG).log(ModBlocks.STRIPPED_EVERGLOOM_LOG).wood(ModBlocks.STRIPPED_EVERGLOOM_WOOD);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EVERGLOOM_LEAVES);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EVERGLOOM_PLANKS);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.WHITE_ETHER);
         blockStateModelGenerator.registerTintableCross(ModBlocks.EVERGLOOM_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(ModBlocks.DEAD_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
     }

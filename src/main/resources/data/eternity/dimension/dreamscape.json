@@ -1,0 +1,24 @@
+{
+  "type": "eternity:dreamscape",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "minecraft:birch_forest",
+          "parameters": {
+            "temperature": 1.5,
+            "humidity": 0,
+            "continentalness": -1,
+            "erosion": -0.5,
+            "weirdness": 0,
+            "depth": 0.2,
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "minecraft:overworld"
+  }
+}

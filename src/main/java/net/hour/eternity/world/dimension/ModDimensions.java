@@ -15,6 +15,11 @@ public class ModDimensions {
     public static final RegistryKey<DimensionType> LIMBO_DIM_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE,
             LIMBO_DIM_KEY.getValue());
 
+    public static final RegistryKey<World> DREAMSCAPE_KEY = RegistryKey.of(RegistryKeys.WORLD,
+            new Identifier(Eternity.MOD_ID, "dreamscape"));
+
+    public static final RegistryKey<DimensionType> DREAMSCAPE_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE,
+            DREAMSCAPE_KEY.getValue());
 
 
     public static void register() {

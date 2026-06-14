@@ -6,7 +6,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.command.argument.RegistryEntryArgumentType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKeys;
@@ -15,7 +14,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import xyz.nucleoid.disguiselib.api.EntityDisguise;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import static net.minecraft.server.command.CommandManager.argument;
