@@ -62,6 +62,8 @@ public class Eternity implements ModInitializer {
     // /execute in eternity:limbo_dim run tp Tarr_Mischief ~ ~ ~
     // /locate biome eternity:{biome_name}
 
+    //TODO:
+    //Fix only the player that did the end dreamscape command returning from dreamscape instead of everybody.
 
 	@Override
 	public void onInitialize() {

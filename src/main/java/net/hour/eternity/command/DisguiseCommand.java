@@ -15,6 +15,7 @@ import net.minecraft.text.Text;
 import xyz.nucleoid.disguiselib.api.EntityDisguise;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -25,66 +26,104 @@ public class DisguiseCommand {
         dispatcher.register(literal("disguise")
                 .requires(source -> source.hasPermissionLevel(2))
 
+                .then(literal("clear")
+                        .executes(ctx -> clearDisguise(ctx))
+                )
+
                 .then(literal("player")
                         .then(argument("target", StringArgumentType.word())
                                 .executes(ctx -> disguiseAsPlayer(ctx))
                         )
                 )
+
                 .then(literal("mob")
                         .then(argument("type", RegistryEntryArgumentType.registryEntry(registryAccess, RegistryKeys.ENTITY_TYPE))
                                 .executes(ctx -> disguiseAsMob(ctx))
                         )
                 )
-                .then(literal("clear")
-                        .executes((CommandContext<ServerCommandSource> ctx) -> {
-                            ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
-                            ((EntityDisguise) player).removeDisguise();
-
-                            ctx.getSource().sendFeedback(() -> Text.literal("Disguise Cleared!"), false);
-                            return 1;
-                        })
-                )
         );
     }
 
-    private static int disguiseAsPlayer(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
-        ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
-        String targetName = StringArgumentType.getString(ctx, "target");
+    private static int disguiseAsPlayer(CommandContext<ServerCommandSource> ctx) {
+        try {
+            ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
+            String targetName = StringArgumentType.getString(ctx, "target");
 
-        Optional<GameProfile> profileOpt = ctx.getSource().getServer().getUserCache().findByName(targetName);
+            GameProfile targetProfile = ctx.getSource().getServer().getUserCache()
+                    .findByName(targetName)
+                    .orElse(new GameProfile(UUID.randomUUID(), targetName));
 
-        if (profileOpt.isEmpty()) {
-            ctx.getSource().sendFeedback(() -> Text.literal("§cCould not find player: " + targetName), false);
+            EntityDisguise disguise = (EntityDisguise) player;
+
+            disguise.removeDisguise();
+
+            disguise.disguiseAs(EntityType.PLAYER);
+            disguise.setGameProfile(targetProfile);
+
+            player.setNoGravity(false);
+            if (!player.isCreative() && !player.isSpectator()) {
+                player.getAbilities().flying = false;
+            }
+            player.sendAbilitiesUpdate();
+
+            ctx.getSource().sendFeedback(() -> Text.literal("§aDisguised as player: " + targetName), false);
+            return 1;
+        } catch (Exception e) {
+            ctx.getSource().sendError(Text.literal("Failed to set player disguise: " + e.getMessage()));
             return 0;
         }
-
-        GameProfile targetProfile = profileOpt.get();
-        EntityDisguise disguise = (EntityDisguise) player;
-        disguise.disguiseAs(EntityType.PLAYER);
-        disguise.setGameProfile(targetProfile);
-
-        ctx.getSource().sendFeedback(() -> Text.literal("Disguised as " + targetProfile.getName()), false);
-        return 1;
     }
 
-    private static int disguiseAsMob(CommandContext<ServerCommandSource> ctx) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
-        ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
+    private static int disguiseAsMob(CommandContext<ServerCommandSource> ctx) {
+        try {
+            ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
+            var entry = RegistryEntryArgumentType.getRegistryEntry(ctx, "type", RegistryKeys.ENTITY_TYPE);
+            EntityType<?> type = entry.value();
 
-        var entry = RegistryEntryArgumentType.getRegistryEntry(ctx, "type", RegistryKeys.ENTITY_TYPE);
-        EntityType<?> type = entry.value();
+            EntityDisguise disguise = (EntityDisguise) player;
 
-        EntityDisguise disguise = (EntityDisguise) player;
-        disguise.disguiseAs(type);
+            disguise.removeDisguise();
+            disguise.disguiseAs(type);
 
-        net.minecraft.entity.Entity dummy = disguise.getDisguiseEntity();
-        if (dummy != null) {
+            var dummy = disguise.getDisguiseEntity();
+            if (dummy != null) {
+                dummy.setNoGravity(false);
+                dummy.setInvisible(false);
+                dummy.calculateDimensions();
+            }
 
-            dummy.setNoGravity(false);
-            dummy.setInvisible(false);
+            player.setNoGravity(false);
+            player.setVelocity(0, player.getVelocity().y, 0);
 
-            dummy.calculateDimensions();
+            ctx.getSource().sendFeedback(() -> Text.literal("§aDisguised as mob: " + type.getName().getString()), false);
+            return 1;
+        } catch (Exception e) {
+            ctx.getSource().sendError(Text.literal("Failed to set mob disguise: " + e.getMessage()));
+            return 0;
         }
-        ctx.getSource().sendFeedback(() -> Text.literal("Disguised as " + type.getName().getString()), false);
-        return 1;
+    }
+
+    private static int clearDisguise(CommandContext<ServerCommandSource> ctx) {
+        try {
+            ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
+            EntityDisguise disguise = (EntityDisguise) player;
+
+            disguise.removeDisguise();
+
+            player.setNoGravity(false);
+            if (!player.isCreative() && !player.isSpectator()) {
+                player.getAbilities().flying = false;
+                player.getAbilities().allowFlying = false;
+            }
+            player.sendAbilitiesUpdate();
+            player.setVelocity(0, 0, 0);
+            player.fallDistance = 0;
+
+            ctx.getSource().sendFeedback(() -> Text.literal("§eDisguise cleared!"), false);
+            return 1;
+        } catch (Exception e) {
+            ctx.getSource().sendError(Text.literal("Failed to clear disguise: " + e.getMessage()));
+            return 0;
+        }
     }
 }
