@@ -7,7 +7,9 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -122,6 +124,8 @@ public class Eternity implements ModInitializer {
             DreamscapeCommand.register(dispatcher);
         });
 
+
+
         //DREAMSCAPE Event Handlers
 
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
@@ -137,6 +141,38 @@ public class Eternity implements ModInitializer {
             }
             return ActionResult.PASS;
         });
+
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            boolean playerDreaming = ((DreamerEntity) player).isDreaming();
+
+            boolean targetDreaming = false;
+            if (entity instanceof DreamerEntity targetDreamer) {
+                targetDreaming = targetDreamer.isDreaming();
+            }
+
+            if (playerDreaming != targetDreaming) {
+                return ActionResult.FAIL;
+            }
+
+            return ActionResult.PASS;
+        });
+
+        UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            boolean playerDreaming = ((DreamerEntity) player).isDreaming();
+
+            boolean targetDreaming = false;
+            if (entity instanceof DreamerEntity targetDreamer) {
+                targetDreaming = targetDreamer.isDreaming();
+            }
+
+            if (playerDreaming != targetDreaming) {
+                return ActionResult.FAIL;
+            }
+
+            return ActionResult.PASS;
+        });
+
+
 
         //Grayscale Post Processing Handler
 

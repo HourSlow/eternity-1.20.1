@@ -14,7 +14,8 @@
     "ItemRendererAccessor",
     "ItemRendererMixin",
     "ModelLoaderMixin",
-    "ClientPlayerEntityMixin"
+    "ClientPlayerEntityMixin",
+    "EntityVisibilityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -14,6 +14,7 @@ import net.hour.eternity.shader.DreamscapeProcessor;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.util.host.HostInvisibilityManager;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
@@ -64,10 +65,16 @@ public class EternityClient implements ClientModInitializer {
         });
 
         ClientPlayNetworking.registerGlobalReceiver(Eternity.DREAM_SYNC_PACKET, (client, handler, buf, responseSender) -> {
+            int entityId = buf.readInt();
             boolean dreaming = buf.readBoolean();
+
             client.execute(() -> {
-                if (client.player != null) {
-                    ((DreamerEntity) client.player).setDreaming(dreaming);
+                if (client.world != null) {
+                    Entity targetEntity = client.world.getEntityById(entityId);
+
+                    if (targetEntity instanceof DreamerEntity dreamer) {
+                        dreamer.setDreaming(dreaming);
+                    }
                 }
             });
         });

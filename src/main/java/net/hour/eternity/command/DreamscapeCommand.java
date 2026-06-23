@@ -19,25 +19,48 @@ public class DreamscapeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("dreamscape")
                 .requires(source -> source.hasPermissionLevel(2))
+
+                .then(CommandManager.literal("endall")
+                        .executes(context -> {
+                            for (ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList()) {
+                                stopDreaming(player);
+                            }
+                            context.getSource().sendFeedback(() -> Text.literal("Ended dreamscape for all players."), true);
+                            return 1;
+                        })
+                )
+
                 .then(CommandManager.literal("end")
                         .executes(context -> {
                             stopDreaming(context.getSource().getPlayer());
                             return 1;
                         })
+                        .then(CommandManager.argument("target", EntityArgumentType.players())
+                                .executes(context -> {
+                                    Collection<ServerPlayerEntity> targets = EntityArgumentType.getPlayers(context, "target");
+                                    for (ServerPlayerEntity target : targets) {
+                                        stopDreaming(target);
+                                    }
+                                    return targets.size();
+                                })
+                        )
                 )
+
                 .then(CommandManager.argument("target", EntityArgumentType.players())
                         .executes(context -> {
                             ServerPlayerEntity sender = context.getSource().getPlayer();
                             Collection<ServerPlayerEntity> targets = EntityArgumentType.getPlayers(context, "target");
 
-                            startDreaming(sender);
+                            if (sender != null) {
+                                startDreaming(sender);
+                            }
 
                             for (ServerPlayerEntity target : targets) {
                                 if (target != sender) {
                                     startDreaming(target);
                                 }
                             }
-                            return 1;
+                            return targets.size();
                         })
                 )
         );
@@ -52,6 +75,9 @@ public class DreamscapeCommand {
 
     private static void stopDreaming(ServerPlayerEntity player) {
         if (player == null) return;
+
+        if (!((DreamerEntity) player).isDreaming()) return;
+
         ((DreamerEntity) player).setDreaming(false);
         syncDreamState(player, false);
         player.sendMessage(Text.literal("You have returned to reality."), true);
@@ -59,7 +85,12 @@ public class DreamscapeCommand {
 
     private static void syncDreamState(ServerPlayerEntity player, boolean isDreaming) {
         PacketByteBuf buf = PacketByteBufs.create();
+
+        buf.writeInt(player.getId());
         buf.writeBoolean(isDreaming);
-        ServerPlayNetworking.send(player, Eternity.DREAM_SYNC_PACKET, buf);
+
+        for (ServerPlayerEntity target : player.server.getPlayerManager().getPlayerList()) {
+            ServerPlayNetworking.send(target, Eternity.DREAM_SYNC_PACKET, buf);
+        }
     }
 }
