@@ -10,6 +10,8 @@ public class ModMaterialRules {
     private static final MaterialRules.MaterialRule GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
     private static final MaterialRules.MaterialRule COARSE_DIRT = makeStateRule(Blocks.COARSE_DIRT);
     private static final MaterialRules.MaterialRule STONE = makeStateRule(Blocks.STONE);
+    private static final MaterialRules.MaterialRule SAND = makeStateRule(Blocks.SAND);
+    private static final MaterialRules.MaterialRule SANDSTONE = makeStateRule(Blocks.SANDSTONE);
 
 
     public static MaterialRules.MaterialRule makeRules() {
@@ -33,15 +35,24 @@ public class ModMaterialRules {
                 )
         );
 
+        MaterialRules.MaterialRule sansDesertRule = MaterialRules.condition(
+                MaterialRules.biome(ModBiome.SANS),
+                MaterialRules.sequence(
+                        MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, SAND),
+                        MaterialRules.condition(MaterialRules.STONE_DEPTH_CEILING, SANDSTONE)
+                )
+        );
+
         // === Default rule if no biome matches ===
         MaterialRules.MaterialRule defaultRule = MaterialRules.sequence(
-                MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, GRASS_BLOCK),
-                MaterialRules.condition(MaterialRules.STONE_DEPTH_CEILING, DIRT)
+                MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, STONE),
+                MaterialRules.condition(MaterialRules.STONE_DEPTH_CEILING, STONE)
         );
 
         return MaterialRules.sequence(
                 wastesRule,
                 eerieForestRule,
+                sansDesertRule,
                 defaultRule
         );
     }

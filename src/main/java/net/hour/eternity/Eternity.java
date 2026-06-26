@@ -10,6 +10,10 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.networking.v1.EntityTrackingEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -39,6 +43,7 @@ import net.hour.eternity.world.gen.ModWorldGeneration;
 import net.hour.eternity.world.structure.CenterStructureState;
 import net.hour.eternity.world.structure.StructurePlacer;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -51,6 +56,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Eternity implements ModInitializer {
+
 
 	public static final String MOD_ID = "eternity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -65,7 +71,7 @@ public class Eternity implements ModInitializer {
     // /locate biome eternity:{biome_name}
 
     //TODO:
-    //Fix only the player that did the end dreamscape command returning from dreamscape instead of everybody.
+    //Nothing for now
 
 	@Override
 	public void onInitialize() {
@@ -170,6 +176,29 @@ public class Eternity implements ModInitializer {
             }
 
             return ActionResult.PASS;
+        });
+
+        EntityTrackingEvents.START_TRACKING.register((trackedEntity, trackingPlayer) -> {
+            if (trackedEntity instanceof DreamerEntity dreamer) {
+                boolean isDreaming = dreamer.isDreaming();
+
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(trackedEntity.getId());
+                buf.writeBoolean(isDreaming);
+
+                ServerPlayNetworking.send(trackingPlayer, Eternity.DREAM_SYNC_PACKET, buf);
+            }
+        });
+
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            ServerPlayerEntity player = handler.player;
+            boolean isDreaming = ((DreamerEntity) player).isDreaming();
+
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(player.getId());
+            buf.writeBoolean(isDreaming);
+
+            ServerPlayNetworking.send(player, Eternity.DREAM_SYNC_PACKET, buf);
         });
 
 

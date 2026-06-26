@@ -1,6 +1,7 @@
 package net.hour.eternity.world.biome;
 
 import net.hour.eternity.Eternity;
+import net.hour.eternity.world.structure.StructurePlacer;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -12,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
 public class ModBiome {
@@ -25,12 +27,16 @@ public class ModBiome {
     public static final RegistryKey<Biome> GLITCHLANDS = RegistryKey.of(RegistryKeys.BIOME,
             new Identifier(Eternity.MOD_ID, "glitchlands"));
 
+    public static final RegistryKey<Biome> SANS = RegistryKey.of(RegistryKeys.BIOME,
+            new Identifier(Eternity.MOD_ID, "sans"));
+
 
 
     public static void bootstrap(Registerable<Biome> context) {
         context.register(WASTES, wastesBiome(context));
         context.register(EERIE_FOREST, eerieForestBiome(context));
         context.register(GLITCHLANDS, glitchlandsBiome(context));
+        context.register(SANS, sansBiome(context));
     }
 
 
@@ -97,6 +103,38 @@ public class ModBiome {
                         .fogColor(0xdddddd)
                         .moodSound(BiomeMoodSound.CAVE)
                         .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.ENTITY_ENDERMITE_AMBIENT))).build())
+                .build();
+    }
+
+    public static Biome sansBiome(Registerable<Biome> context) {
+        SpawnSettings.Builder spawnBuilder = new SpawnSettings.Builder();
+
+        GenerationSettings.LookupBackedBuilder biomeBuilder =
+                new GenerationSettings.LookupBackedBuilder(context.getRegistryLookup(RegistryKeys.PLACED_FEATURE),
+                        context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER));
+
+        globalOverworldGeneration(biomeBuilder);
+
+        DefaultBiomeFeatures.addVines(biomeBuilder);
+
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+        biomeBuilder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_DEAD_BUSH_2);
+
+        return new Biome.Builder()
+                .precipitation(true)
+                .downfall(0.0f)
+                .temperature(2.0f)
+                .generationSettings(biomeBuilder.build())
+                .spawnSettings(spawnBuilder.build())
+                .effects((new BiomeEffects.Builder())
+                        .waterColor(0x3FA6E4)
+                        .waterFogColor(0x1C84B5)
+                        .skyColor(0x7ABDF0)
+                        .grassColor(0xBFB755)
+                        .foliageColor(0xAEA42A)
+                        .fogColor(0xEADFCE)
+                        .moodSound(BiomeMoodSound.CAVE)
+                        .music(MusicType.createIngameMusic(RegistryEntry.of(SoundEvents.BLOCK_BASALT_STEP))).build())
                 .build();
     }
 

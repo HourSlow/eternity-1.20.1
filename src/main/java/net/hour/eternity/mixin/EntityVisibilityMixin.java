@@ -33,11 +33,7 @@ public class EntityVisibilityMixin {
         boolean playerInDreamscape = this.isEntityInDreamscape(localPlayer);
         boolean targetInDreamscape = this.isEntityInDreamscape(entity);
 
-        if (playerInDreamscape && !targetInDreamscape) {
-            ci.cancel();
-        }
-
-        else if (!playerInDreamscape && targetInDreamscape) {
+        if (playerInDreamscape != targetInDreamscape) {
             ci.cancel();
         }
     }
