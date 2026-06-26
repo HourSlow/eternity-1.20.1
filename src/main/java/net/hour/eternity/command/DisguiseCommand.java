@@ -12,7 +12,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import xyz.nucleoid.disguiselib.api.EntityDisguise;
+//import xyz.nucleoid.disguiselib.api.EntityDisguise;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -53,12 +53,12 @@ public class DisguiseCommand {
                     .findByName(targetName)
                     .orElse(new GameProfile(UUID.randomUUID(), targetName));
 
-            EntityDisguise disguise = (EntityDisguise) player;
+            //EntityDisguise disguise = (EntityDisguise) player;
 
-            disguise.removeDisguise();
+           // disguise.removeDisguise();
 
-            disguise.disguiseAs(EntityType.PLAYER);
-            disguise.setGameProfile(targetProfile);
+           // disguise.disguiseAs(EntityType.PLAYER);
+           // disguise.setGameProfile(targetProfile);
 
             player.setNoGravity(false);
             if (!player.isCreative() && !player.isSpectator()) {
@@ -80,17 +80,17 @@ public class DisguiseCommand {
             var entry = RegistryEntryArgumentType.getRegistryEntry(ctx, "type", RegistryKeys.ENTITY_TYPE);
             EntityType<?> type = entry.value();
 
-            EntityDisguise disguise = (EntityDisguise) player;
+           // EntityDisguise disguise = (EntityDisguise) player;
 
-            disguise.removeDisguise();
-            disguise.disguiseAs(type);
+          //  disguise.removeDisguise();
+          //  disguise.disguiseAs(type);
 
-            var dummy = disguise.getDisguiseEntity();
-            if (dummy != null) {
-                dummy.setNoGravity(false);
-                dummy.setInvisible(false);
-                dummy.calculateDimensions();
-            }
+         //   var dummy = disguise.getDisguiseEntity();
+          //  if (dummy != null) {
+        //        dummy.setNoGravity(false);
+        //        dummy.setInvisible(false);
+        //        dummy.calculateDimensions();
+        //    }
 
             player.setNoGravity(false);
             player.setVelocity(0, player.getVelocity().y, 0);
@@ -106,9 +106,9 @@ public class DisguiseCommand {
     private static int clearDisguise(CommandContext<ServerCommandSource> ctx) {
         try {
             ServerPlayerEntity player = ctx.getSource().getPlayerOrThrow();
-            EntityDisguise disguise = (EntityDisguise) player;
-
-            disguise.removeDisguise();
+//            EntityDisguise disguise = (EntityDisguise) player;
+//
+//            disguise.removeDisguise();
 
             player.setNoGravity(false);
             if (!player.isCreative() && !player.isSpectator()) {

@@ -3,6 +3,7 @@ package net.hour.eternity;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -18,7 +19,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class EternityClient implements ClientModInitializer {
+
+    public static final Map<Integer, Boolean> DREAM_STATES = new ConcurrentHashMap<>();
     private boolean wasDreaming = false;
 
     @Override
@@ -69,14 +75,19 @@ public class EternityClient implements ClientModInitializer {
             boolean dreaming = buf.readBoolean();
 
             client.execute(() -> {
+                DREAM_STATES.put(entityId, dreaming);
+
                 if (client.world != null) {
                     Entity targetEntity = client.world.getEntityById(entityId);
-
                     if (targetEntity instanceof DreamerEntity dreamer) {
                         dreamer.setDreaming(dreaming);
                     }
                 }
             });
+        });
+
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            DREAM_STATES.clear();
         });
     }
 }

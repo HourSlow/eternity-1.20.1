@@ -2,6 +2,7 @@ package net.hour.eternity.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.hour.eternity.EternityClient;
 import net.hour.eternity.util.DreamerEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -39,9 +40,14 @@ public class EntityVisibilityMixin {
     }
 
     private boolean isEntityInDreamscape(Entity entity) {
-        if (entity instanceof DreamerEntity dreamer) {
+        if (EternityClient.DREAM_STATES.containsKey(entity.getId())) {
+            return EternityClient.DREAM_STATES.get(entity.getId());
+        }
+
+        if (entity instanceof net.hour.eternity.util.DreamerEntity dreamer) {
             return dreamer.isDreaming();
         }
+
         return false;
     }
 }

@@ -123,9 +123,9 @@ public class Eternity implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 HostCommand.register(dispatcher)
         );
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
-                DisguiseCommand.register(dispatcher, registryAccess)
-        );
+//        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+//                DisguiseCommand.register(dispatcher, registryAccess)
+//        );
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             DreamscapeCommand.register(dispatcher);
         });
