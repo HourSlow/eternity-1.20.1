@@ -40,14 +40,9 @@ public class EntityVisibilityMixin {
     }
 
     private boolean isEntityInDreamscape(Entity entity) {
-        if (EternityClient.DREAM_STATES.containsKey(entity.getId())) {
-            return EternityClient.DREAM_STATES.get(entity.getId());
-        }
-
         if (entity instanceof net.hour.eternity.util.DreamerEntity dreamer) {
             return dreamer.isDreaming();
         }
-
         return false;
     }
 }

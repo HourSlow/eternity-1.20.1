@@ -3,8 +3,6 @@ package net.hour.eternity;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.hour.eternity.block.ModBlocks;
@@ -14,9 +12,12 @@ import net.hour.eternity.util.DreamerEntity;
 import net.hour.eternity.shader.DreamscapeProcessor;
 import net.hour.eternity.shader.GrayscaleProcessor;
 import net.hour.eternity.util.host.HostInvisibilityManager;
+import net.hour.eternity.util.packets.ModClientPackets;
+import net.hour.eternity.world.dimension.ModDimensions;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.entity.Entity;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
 import java.util.Map;
@@ -30,6 +31,7 @@ public class EternityClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HostInvisibilityManager.registerClient();
+        ModClientPackets.registerClientPackets();
 
         PostProcessHandler.addInstance(GrayscaleProcessor.INSTANCE);
         PostProcessHandler.addInstance(DreamscapeProcessor.INSTANCE);
@@ -52,6 +54,22 @@ public class EternityClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.STRIKE, OrbitalStrikeRenderer::new);
 
+        //Grayscale Post Processing Handler
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.world == null) {
+                GrayscaleProcessor.INSTANCE.setActive(false);
+                return;
+            }
+
+            RegistryKey<World> current = client.world.getRegistryKey();
+            if (current == ModDimensions.LIMBO_DIM_KEY) {
+                GrayscaleProcessor.INSTANCE.setActive(true);
+            } else {
+                GrayscaleProcessor.INSTANCE.setActive(false);
+            }
+        });
+
         //Dreamscape Processor Client-side Handling
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
@@ -68,26 +86,6 @@ public class EternityClient implements ClientModInitializer {
                     }
                 }
             }
-        });
-
-        ClientPlayNetworking.registerGlobalReceiver(Eternity.DREAM_SYNC_PACKET, (client, handler, buf, responseSender) -> {
-            int entityId = buf.readInt();
-            boolean dreaming = buf.readBoolean();
-
-            client.execute(() -> {
-                DREAM_STATES.put(entityId, dreaming);
-
-                if (client.world != null) {
-                    Entity targetEntity = client.world.getEntityById(entityId);
-                    if (targetEntity instanceof DreamerEntity dreamer) {
-                        dreamer.setDreaming(dreaming);
-                    }
-                }
-            });
-        });
-
-        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            DREAM_STATES.clear();
         });
     }
 }

@@ -18,7 +18,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
-import net.hour.eternity.command.DisguiseCommand;
 import net.hour.eternity.command.DreamscapeCommand;
 import net.hour.eternity.command.HostCommand;
 import net.hour.eternity.entity.ModEntities;
@@ -36,7 +35,6 @@ import net.hour.eternity.util.host.HostUtil;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
 import net.hour.eternity.util.loottable.ModLootTableModifier;
-import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.util.packets.ModPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.hour.eternity.world.gen.ModWorldGeneration;
@@ -93,7 +91,6 @@ public class Eternity implements ModInitializer {
         ModLootTableModifier.modifyLootTables();
 
         ModPackets.registerPackets();
-        ModClientPackets.registerClientPackets();
 
         InventorySwapHandler.register();
         RespawnCopyHandler.register();
@@ -202,22 +199,7 @@ public class Eternity implements ModInitializer {
         });
 
 
-
-        //Grayscale Post Processing Handler
-
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.world == null) {
-				GrayscaleProcessor.INSTANCE.setActive(false);
-				return;
-			}
-
-			RegistryKey<World> current = client.world.getRegistryKey();
-			if (current == ModDimensions.LIMBO_DIM_KEY) {
-				GrayscaleProcessor.INSTANCE.setActive(true);
-			} else {
-				GrayscaleProcessor.INSTANCE.setActive(false);
-			}
-		});
+        //Limbo Death stuff
 
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
 			if (!alive && oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {

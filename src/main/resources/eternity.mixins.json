@@ -3,18 +3,18 @@
   "package": "net.hour.eternity.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CustomCapeMixin",
     "ServerPlayerEntityMixin",
-    "MixinLivingEntityRenderer",
     "MixinEntity",
     "ServerCommandSourceMixin",
-    "PostEffectPassMixin"
+    "PlayerEntityMixin"
   ],
   "client": [
     "ItemRendererAccessor",
     "ItemRendererMixin",
     "ModelLoaderMixin",
+    "MixinLivingEntityRenderer",
     "ClientPlayerEntityMixin",
+    "PostEffectPassMixin",
     "EntityVisibilityMixin"
   ],
   "injectors": {

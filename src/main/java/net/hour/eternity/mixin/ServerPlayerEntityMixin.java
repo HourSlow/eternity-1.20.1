@@ -14,27 +14,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolder, DreamerEntity {
+public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolder {
 
     @Unique private NbtList limbo$savedOutside = null;
     @Unique private NbtList limbo$savedLimbo   = null;
-    @Unique private boolean eternity$isDreaming = false;
-
-    @Override
-    public boolean isDreaming() { return eternity$isDreaming; }
-
-    @Override
-    public void setDreaming(boolean dreaming) { this.eternity$isDreaming = dreaming; }
-
-    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-    private void eternity$writeDreamData(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putBoolean("IsDreaming", eternity$isDreaming);
-    }
-
-    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-    private void eternity$readDreamData(NbtCompound nbt, CallbackInfo ci) {
-        this.eternity$isDreaming = nbt.getBoolean("IsDreaming");
-    }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void limbo$writeCustomData(NbtCompound nbt, CallbackInfo ci) {
@@ -106,8 +89,6 @@ public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolde
         if (other instanceof ServerPlayerEntityMixin mix) {
             this.limbo$savedOutside = mix.limbo$savedOutside == null ? null : mix.limbo$savedOutside.copy();
             this.limbo$savedLimbo = mix.limbo$savedLimbo == null ? null : mix.limbo$savedLimbo.copy();
-
-            this.eternity$isDreaming = ((DreamerEntity) mix).isDreaming();
         }
     }
 }

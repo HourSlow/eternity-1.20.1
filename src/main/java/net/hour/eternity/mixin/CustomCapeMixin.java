@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import java.util.Objects;
 
-@Mixin(CapeFeatureRenderer.class)
-public class CustomCapeMixin {
-
-    @ModifyArg(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/network/AbstractClientPlayerEntity;FFFFFF)V"
-            ,at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexConsumerProvider;getBuffer(Lnet/minecraft/client/render/RenderLayer;)Lnet/minecraft/client/render/VertexConsumer;"))
-    private RenderLayer SW$changeCape(RenderLayer layer, @Local(argsOnly = true) AbstractClientPlayerEntity player) {
-        if (Objects.equals(player.getUuid().toString(), "f06622d6-fb39-419d-9eed-535aaef3c894")) return RenderLayer.getEndPortal();
-        return layer;
-    }
-}
+//@Mixin(CapeFeatureRenderer.class)
+//public class CustomCapeMixin {
+//
+//    @ModifyArg(method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/client/network/AbstractClientPlayerEntity;FFFFFF)V"
+//            ,at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexConsumerProvider;getBuffer(Lnet/minecraft/client/render/RenderLayer;)Lnet/minecraft/client/render/VertexConsumer;"))
+//    private RenderLayer SW$changeCape(RenderLayer layer, @Local(argsOnly = true) AbstractClientPlayerEntity player) {
+//        if (Objects.equals(player.getUuid().toString(), "f06622d6-fb39-419d-9eed-535aaef3c894")) return RenderLayer.getEndPortal();
+//        return layer;
+//    }
+//}
