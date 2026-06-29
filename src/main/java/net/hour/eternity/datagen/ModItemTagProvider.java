@@ -24,5 +24,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModBlocks.STRIPPED_EVERGLOOM_LOG.asItem())
                 .add(ModBlocks.EVERGLOOM_WOOD.asItem())
                 .add(ModBlocks.STRIPPED_EVERGLOOM_WOOD.asItem());
+
+        getOrCreateTagBuilder(ItemTags.LEAVES)
+                .add(ModBlocks.EVERGLOOM_LEAVES.asItem());
     }
 }

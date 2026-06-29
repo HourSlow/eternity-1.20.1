@@ -38,29 +38,30 @@ public class ModBlocks {
 
 
     public static final Block EVERGLOOM_LOG = registerBlock("evergloom_log",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(5f)));
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_LOG).strength(3f)));
 
     public static final Block EVERGLOOM_WOOD = registerBlock("evergloom_wood",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(5f)));
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.OAK_WOOD).strength(3f)));
 
     public static final Block STRIPPED_EVERGLOOM_LOG = registerBlock("stripped_evergloom_log",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_LOG).strength(5f)));
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_LOG).strength(3f)));
 
     public static final Block STRIPPED_EVERGLOOM_WOOD = registerBlock("stripped_evergloom_wood",
-            new PillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_WOOD).strength(5f)));
+            new PillarBlock(FabricBlockSettings.copyOf(Blocks.STRIPPED_OAK_WOOD).strength(3f)));
 
 
     public static final Block EVERGLOOM_PLANKS = registerBlock("evergloom_planks",
-            new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(5f)));
+            new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).strength(2f)));
 
     public static final Block EVERGLOOM_LEAVES = registerBlock("evergloom_leaves",
-            new Block(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES).strength(1f).nonOpaque()));
+            new Block(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES).strength(0.3f).nonOpaque()));
+
+
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(Eternity.MOD_ID, name),block);
     }
-
 
     private static void addBlockToNaturalItemGroup(FabricItemGroupEntries entries) {
         entries.add(EVERGLOOM_SAPLING);

@@ -20,7 +20,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.EVERGLOOM_LOG)
                 .add(ModBlocks.STRIPPED_EVERGLOOM_LOG)
                 .add(ModBlocks.EVERGLOOM_WOOD)
-                .add(ModBlocks.EVERGLOOM_LEAVES)
                 .add(ModBlocks.STRIPPED_EVERGLOOM_WOOD);
+
+        getOrCreateTagBuilder(BlockTags.LEAVES)
+                .add(ModBlocks.EVERGLOOM_LEAVES);
+
+        getOrCreateTagBuilder(BlockTags.SAPLINGS)
+                .add(ModBlocks.DEAD_OAK_SAPLING)
+                .add(ModBlocks.EVERGLOOM_SAPLING);
     }
 }

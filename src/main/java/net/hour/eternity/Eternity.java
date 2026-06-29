@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.hour.eternity.block.ModBlocks;
+import net.hour.eternity.command.DimTPCommand;
 import net.hour.eternity.command.DreamscapeCommand;
 import net.hour.eternity.command.HostCommand;
 import net.hour.eternity.entity.ModEntities;
@@ -90,10 +91,10 @@ public class Eternity implements ModInitializer {
         InventorySwapHandler.register();
         RespawnCopyHandler.register();
 
+        //Wood Registries
 
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_LOG, ModBlocks.STRIPPED_EVERGLOOM_LOG);
         StrippableBlockRegistry.register(ModBlocks.EVERGLOOM_WOOD, ModBlocks.STRIPPED_EVERGLOOM_WOOD);
-
 
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LOG, 5, 5);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.STRIPPED_EVERGLOOM_LOG, 5, 5);
@@ -102,6 +103,7 @@ public class Eternity implements ModInitializer {
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_PLANKS, 5, 20);
         FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.EVERGLOOM_LEAVES, 30, 60);
 
+        //Entity Registries
 
 		FabricDefaultAttributeRegistry.register(ModEntities.THE_FORGOTTEN,
 				ForgottenEntity.createTheForgottenAttributes());
@@ -115,12 +117,15 @@ public class Eternity implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 HostCommand.register(dispatcher)
         );
-//        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
-//                DisguiseCommand.register(dispatcher, registryAccess)
-//        );
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             DreamscapeCommand.register(dispatcher);
         });
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            DimTPCommand.register(dispatcher);
+        });
+        //        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+//                DisguiseCommand.register(dispatcher, registryAccess)
+//        );
 
 
 
