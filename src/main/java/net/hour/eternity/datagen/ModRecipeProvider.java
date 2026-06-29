@@ -85,5 +85,22 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('E', ModBlocks.EVERGLOOM_PLANKS)
                 .criterion(hasItem(ModBlocks.EVERGLOOM_PLANKS), conditionsFromItem(ModBlocks.EVERGLOOM_PLANKS))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModItems.EVERGLOOM_SIGN, 3)
+                .pattern("EEE")
+                .pattern("EEE")
+                .pattern(" S ")
+                .input('E', ModBlocks.EVERGLOOM_PLANKS)
+                .input('S', Items.STICK)
+                .criterion(hasItem(ModBlocks.EVERGLOOM_PLANKS), conditionsFromItem(ModBlocks.EVERGLOOM_PLANKS))
+                .offerTo(exporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModItems.EVERGLOOM_HANGING_SIGN, 6)
+                .pattern("X X")
+                .pattern("EEE")
+                .pattern("EEE")
+                .input('E', ModBlocks.EVERGLOOM_PLANKS)
+                .input('X', Items.CHAIN)
+                .criterion(hasItem(ModBlocks.EVERGLOOM_PLANKS), conditionsFromItem(ModBlocks.EVERGLOOM_PLANKS))
+                .offerTo(exporter);
     }
 }

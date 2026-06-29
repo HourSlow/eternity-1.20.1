@@ -59,5 +59,8 @@ public class ModModelProvider extends FabricModelProvider {
                 new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
 
         itemModelGenerator.register(ModItems.EVERGLOOM_HANGING_SIGN, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.EVERGLOOM_BOAT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EVERGLOOM_CHEST_BOAT, Models.GENERATED);
     }
 }

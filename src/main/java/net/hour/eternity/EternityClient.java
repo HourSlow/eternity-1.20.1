@@ -1,5 +1,6 @@
 package net.hour.eternity;
 
+import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -7,6 +8,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.hour.eternity.block.ModBlocks;
+import net.hour.eternity.entity.ModBoats;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.client.*;
 import net.hour.eternity.util.DreamerEntity;
@@ -47,6 +49,8 @@ public class EternityClient implements ClientModInitializer {
 
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.EVERGLOOM_SIGN_TEXTURE));
         SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.EVERGLOOM_HANGING_SIGN_TEXTURE));
+
+        TerraformBoatClientHelper.registerModelLayers(ModBoats.EVERGLOOM_BOAT_ID, false);
 
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.THE_FORGOTTEN, ForgottenModel::getTexturedModelData);

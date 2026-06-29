@@ -1,10 +1,13 @@
 package net.hour.eternity.item;
 
+import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
+import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.hour.eternity.Eternity;
 import net.hour.eternity.block.ModBlocks;
+import net.hour.eternity.entity.ModBoats;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.item.custom.*;
 import net.minecraft.item.*;
@@ -35,6 +38,10 @@ public class ModItems {
             new MaceItem(new FabricItemSettings().maxCount(1).fireproof().rarity(Rarity.EPIC)));
 
 
+    public static final Item EVERGLOOM_BOAT = TerraformBoatItemHelper
+            .registerBoatItem(ModBoats.EVERGLOOM_BOAT_ID, ModBoats.EVERGLOOM_BOAT_KEY, false);
+    public static final Item EVERGLOOM_CHEST_BOAT = TerraformBoatItemHelper
+            .registerBoatItem(ModBoats.EVERGLOOM_CHEST_BOAT_ID, ModBoats.EVERGLOOM_BOAT_KEY, true);
 
     public static final Item EVERGLOOM_SIGN = registerItem("evergloom_sign",
             new SignItem(new FabricItemSettings().maxCount(16), ModBlocks.STANDING_EVERGLOOM_SIGN, ModBlocks.WALL_EVERGLOOM_SIGN));
@@ -63,6 +70,11 @@ public class ModItems {
         entries.add(EVERGLOOM_HANGING_SIGN);
     }
 
+    private static void addItemToBoatsItemGroup(FabricItemGroupEntries entries) {
+        entries.add(EVERGLOOM_BOAT);
+        entries.add(EVERGLOOM_CHEST_BOAT);
+    }
+
     private static void addItemToCombatItemGroup(FabricItemGroupEntries entries) {
         entries.add(ETERNAL_LANTERN);
     }
@@ -77,5 +89,6 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addItemToSpawnEggsItemGroup);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addItemToCombatItemGroup);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ModItems::addItemToBuildingBlocksItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addItemToBoatsItemGroup);
     }
 }

@@ -21,6 +21,7 @@ import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.command.DimTPCommand;
 import net.hour.eternity.command.DreamscapeCommand;
 import net.hour.eternity.command.HostCommand;
+import net.hour.eternity.entity.ModBoats;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.custom.ForgottenEntity;
 import net.hour.eternity.entity.custom.LilGuyEntity;
@@ -83,6 +84,7 @@ public class Eternity implements ModInitializer {
 		ModDimensions.register();
 
 		ModEntities.registerModEntities();
+        ModBoats.registerBoats();
 
         ModLootTableModifier.modifyLootTables();
 
