@@ -17,6 +17,21 @@
   "block.eternity.evergloom_sapling": "Evergloom Sapling",
   "block.eternity.dead_oak_sapling": "Dead Oak Sapling",
 
+  "block.eternity.evergloom_stairs": "Evergloom Stairs",
+  "block.eternity.evergloom_slab": "Evergloom Slab",
+  "block.eternity.evergloom_button": "Evergloom Button",
+  "block.eternity.evergloom_pressure_plate": "Evergloom Pressure Plate",
+  "block.eternity.evergloom_fence": "Evergloom Fence",
+  "block.eternity.evergloom_fence_gate": "Evergloom Fence Gate",
+  "block.eternity.evergloom_door": "Evergloom Door",
+  "block.eternity.evergloom_trapdoor": "Evergloom Trapdoor",
+
+  "block.eternity.standing_evergloom_sign": "Evergloom Standing Sign",
+  "block.eternity.wall_evergloom_sign": "Evergloom Wall Sign",
+
+  "block.eternity.hanging_evergloom_sign": "Evergloom Hanging Sign",
+  "block.eternity.wall_hanging_evergloom_sign": "Evergloom Wall Hanging Sign",
+
   "block.eternity.statue_tarr": "Malicious Statue",
 
   "item.eternity.forgotten_spawn_egg": "Forgotten Spawn Egg",

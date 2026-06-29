@@ -28,5 +28,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
                 .add(ModBlocks.DEAD_OAK_SAPLING)
                 .add(ModBlocks.EVERGLOOM_SAPLING);
+
+        getOrCreateTagBuilder(BlockTags.WOODEN_FENCES)
+                .add(ModBlocks.EVERGLOOM_FENCE);
+        getOrCreateTagBuilder(BlockTags.FENCE_GATES)
+                .add(ModBlocks.EVERGLOOM_FENCE_GATE);
+
     }
 }

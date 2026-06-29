@@ -23,6 +23,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModBlocks.EVERGLOOM_LOG.asItem())
                 .add(ModBlocks.STRIPPED_EVERGLOOM_LOG.asItem())
                 .add(ModBlocks.EVERGLOOM_WOOD.asItem())
+                .add(ModBlocks.EVERGLOOM_DOOR.asItem())
+                .add(ModBlocks.EVERGLOOM_TRAPDOOR.asItem())
+                .add(ModBlocks.EVERGLOOM_STAIRS.asItem())
+                .add(ModBlocks.EVERGLOOM_SLAB.asItem())
+                .add(ModBlocks.EVERGLOOM_FENCE.asItem())
+                .add(ModBlocks.EVERGLOOM_FENCE_GATE.asItem())
                 .add(ModBlocks.STRIPPED_EVERGLOOM_WOOD.asItem());
 
         getOrCreateTagBuilder(ItemTags.LEAVES)

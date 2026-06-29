@@ -19,6 +19,10 @@ repositories {
 	maven {
 		url 'https://maven.nucleoid.xyz'
 	}
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com/'
+	}
 
 	maven { url = 'https://maven.minecraftforge.net/' }
 	maven {url = 'https://maven.blamejared.com/' }
@@ -61,6 +65,8 @@ dependencies {
 	}
 	modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
 
+	modImplementation ("com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1")
+	include ("com.terraformersmc.terraform-api:terraform-wood-api-v1:7.0.1")
 	//modImplementation("xyz.nucleoid:disguiselib-fabric:${project.disguiselib_version}")
 	//include ("xyz.nucleoid:disguiselib-fabric:${project.disguiselib_version}")
 	//disguiselib_version=1.3.3

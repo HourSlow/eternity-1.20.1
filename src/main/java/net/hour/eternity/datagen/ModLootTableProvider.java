@@ -20,6 +20,16 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.EVERGLOOM_SAPLING);
         addDrop(ModBlocks.DEAD_OAK_SAPLING);
 
-        addDrop(ModBlocks.EVERGLOOM_LEAVES, leavesDrops(ModBlocks.EVERGLOOM_LEAVES, ModBlocks.EVERGLOOM_SAPLING, 0.25f));
+        addDrop(ModBlocks.EVERGLOOM_STAIRS);
+        addDrop(ModBlocks.EVERGLOOM_FENCE);
+        addDrop(ModBlocks.EVERGLOOM_FENCE_GATE);
+        addDrop(ModBlocks.EVERGLOOM_TRAPDOOR);
+        addDrop(ModBlocks.EVERGLOOM_BUTTON);
+        addDrop(ModBlocks.EVERGLOOM_PRESSURE_PLATE);
+
+        addDrop(ModBlocks.EVERGLOOM_DOOR, doorDrops(ModBlocks.EVERGLOOM_DOOR));
+        addDrop(ModBlocks.EVERGLOOM_SLAB, slabDrops(ModBlocks.EVERGLOOM_SLAB));
+
+        addDrop(ModBlocks.EVERGLOOM_LEAVES, leavesDrops(ModBlocks.EVERGLOOM_LEAVES, ModBlocks.EVERGLOOM_SAPLING, 0.15f));
     }
 }

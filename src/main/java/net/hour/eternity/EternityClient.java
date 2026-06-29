@@ -1,5 +1,6 @@
 package net.hour.eternity;
 
+import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -15,6 +16,8 @@ import net.hour.eternity.util.host.HostInvisibilityManager;
 import net.hour.eternity.util.packets.ModClientPackets;
 import net.hour.eternity.world.dimension.ModDimensions;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
@@ -41,6 +44,9 @@ public class EternityClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DEAD_OAK_SAPLING, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.STATUE, RenderLayer.getCutout());
+
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.EVERGLOOM_SIGN_TEXTURE));
+        SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.EVERGLOOM_HANGING_SIGN_TEXTURE));
 
 
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.THE_FORGOTTEN, ForgottenModel::getTexturedModelData);

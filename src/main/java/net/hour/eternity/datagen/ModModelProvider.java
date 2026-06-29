@@ -24,10 +24,22 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerLog(ModBlocks.EVERGLOOM_LOG).log(ModBlocks.EVERGLOOM_LOG).wood(ModBlocks.EVERGLOOM_WOOD);
         blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_EVERGLOOM_LOG).log(ModBlocks.STRIPPED_EVERGLOOM_LOG).wood(ModBlocks.STRIPPED_EVERGLOOM_WOOD);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EVERGLOOM_LEAVES);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EVERGLOOM_PLANKS);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.WHITE_ETHER);
         blockStateModelGenerator.registerTintableCross(ModBlocks.EVERGLOOM_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(ModBlocks.DEAD_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+
+        BlockStateModelGenerator.BlockTexturePool evergloomPlanksPool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.EVERGLOOM_PLANKS);
+        evergloomPlanksPool.stairs(ModBlocks.EVERGLOOM_STAIRS);
+        evergloomPlanksPool.slab(ModBlocks.EVERGLOOM_SLAB);
+        evergloomPlanksPool.button(ModBlocks.EVERGLOOM_BUTTON);
+        evergloomPlanksPool.pressurePlate(ModBlocks.EVERGLOOM_PRESSURE_PLATE);
+        evergloomPlanksPool.fence(ModBlocks.EVERGLOOM_FENCE);
+        evergloomPlanksPool.fenceGate(ModBlocks.EVERGLOOM_FENCE_GATE);
+
+        evergloomPlanksPool.family(ModBlocks.EVERGLOOM_FAMILY);
+
+        blockStateModelGenerator.registerDoor(ModBlocks.EVERGLOOM_DOOR);
+        blockStateModelGenerator.registerOrientableTrapdoor(ModBlocks.EVERGLOOM_TRAPDOOR);
     }
 
     @Override
@@ -45,5 +57,7 @@ public class ModModelProvider extends FabricModelProvider {
                 new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
         itemModelGenerator.register(ModItems.MENACE_SPAWN_EGG,
                 new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
+
+        itemModelGenerator.register(ModItems.EVERGLOOM_HANGING_SIGN, Models.GENERATED);
     }
 }
