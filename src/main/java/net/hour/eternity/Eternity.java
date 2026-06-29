@@ -28,10 +28,7 @@ import net.hour.eternity.item.ModItemGroup;
 import net.hour.eternity.item.ModItems;
 import net.hour.eternity.util.DreamerEntity;
 import net.hour.eternity.shader.GrayscaleProcessor;
-import net.hour.eternity.util.host.HostInvisibilityManager;
-import net.hour.eternity.util.host.HostStorage;
-import net.hour.eternity.util.host.HostStorageManager;
-import net.hour.eternity.util.host.HostUtil;
+import net.hour.eternity.util.host.*;
 import net.hour.eternity.util.inv.InventorySwapHandler;
 import net.hour.eternity.util.inv.RespawnCopyHandler;
 import net.hour.eternity.util.loottable.ModLootTableModifier;
@@ -74,6 +71,7 @@ public class Eternity implements ModInitializer {
 	@Override
 	public void onInitialize() {
         HostInvisibilityManager.register();
+        HostUtil.register();
 
         ModBlocks.registerModBlocks();
 
@@ -84,9 +82,6 @@ public class Eternity implements ModInitializer {
 		ModDimensions.register();
 
 		ModEntities.registerModEntities();
-
-        HostUtil.register();
-
 
         ModLootTableModifier.modifyLootTables();
 
@@ -201,18 +196,23 @@ public class Eternity implements ModInitializer {
 
         //Limbo Death stuff
 
-		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-			if (!alive && oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
-				ServerWorld customWorld = oldPlayer.getServer().getWorld(ModDimensions.LIMBO_DIM_KEY);
-				if (customWorld != null) {
-					BlockPos spawn = customWorld.getSpawnPos();
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            if (!alive && oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
+                ServerWorld customWorld = oldPlayer.getServer().getWorld(ModDimensions.LIMBO_DIM_KEY);
+                if (customWorld != null) {
+                    BlockPos spawn = customWorld.getSpawnPos();
 
-					newPlayer.teleport(customWorld, spawn.getX() + 0.5, spawn.getY(), spawn.getZ() + 0.5,
-							newPlayer.getYaw(), newPlayer.getPitch());
-				}
-			}
-		});
+                    InventorySwapHandler.SKIP_NEXT_SWAP.add(newPlayer.getUuid());
 
+                    newPlayer.teleport(customWorld, spawn.getX() + 0.5, spawn.getY(), spawn.getZ() + 0.5,
+                            newPlayer.getYaw(), newPlayer.getPitch());
+
+                    InventorySwapHandler.SKIP_NEXT_SWAP.remove(newPlayer.getUuid());
+                }
+            }
+        });
+
+        // Temple in Center of World
 
         ServerWorldEvents.LOAD.register((server, world) -> {
             if (world.getRegistryKey() != net.minecraft.world.World.OVERWORLD) {

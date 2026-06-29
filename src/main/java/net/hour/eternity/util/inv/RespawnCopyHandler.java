@@ -17,17 +17,7 @@ public final class RespawnCopyHandler {
 
             DimensionInventoryHolder newHolder = (DimensionInventoryHolder) newPlayer;
             DimensionInventoryHolder oldHolder = (DimensionInventoryHolder) oldPlayer;
-
-            if (oldPlayer.getWorld().getRegistryKey().equals(ModDimensions.LIMBO_DIM_KEY)) {
-                newHolder.clearSavedInventories();
-                return;
-            }
-
-            if (alive) {
-                newHolder.copyFrom(oldHolder);
-            } else {
-                newHolder.clearSavedInventories();
-            }
+            newHolder.copyFrom(oldHolder);
         });
     }
 }

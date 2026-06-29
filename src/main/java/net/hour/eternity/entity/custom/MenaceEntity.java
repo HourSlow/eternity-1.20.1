@@ -15,6 +15,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
@@ -103,7 +104,7 @@ public class MenaceEntity extends HostileEntity {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4f)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 20)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 25)
                 .add(EntityAttributes.GENERIC_ARMOR, 0f)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 99999);
     }
@@ -116,7 +117,21 @@ public class MenaceEntity extends HostileEntity {
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_ILLUSIONER_DEATH;
+        return SoundEvents.ENTITY_HUSK_DEATH;
+    }
+
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return super.damage(source, amount);
+        }
+
+        if (source.isIn(DamageTypeTags.IS_FIRE)) {
+            return super.damage(source, amount);
+        }
+
+        return false;
     }
 
     @Override

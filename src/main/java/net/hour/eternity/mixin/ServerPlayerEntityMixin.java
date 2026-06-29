@@ -1,6 +1,7 @@
 package net.hour.eternity.mixin;
 
 import net.hour.eternity.util.DreamerEntity;
+import net.hour.eternity.util.host.HostStorageManager;
 import net.hour.eternity.util.inv.DimensionInventoryHolder;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
@@ -12,10 +13,14 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolder {
 
+    private static final UUID HOST_UUID = UUID.fromString("f06622d6-fb39-419d-9eed-535aaef3c894");
     @Unique private NbtList limbo$savedOutside = null;
     @Unique private NbtList limbo$savedLimbo   = null;
 
@@ -37,6 +42,23 @@ public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolde
             limbo$savedLimbo = nbt.getList("LimboSavedLimboInventory", NbtElement.COMPOUND_TYPE);
         } else {
             limbo$savedLimbo = null;
+        }
+    }
+
+    @Inject(method = "getPermissionLevel", at = @At("HEAD"), cancellable = true)
+    private void eternity$grantHostMaxPermissions(CallbackInfoReturnable<Integer> cir) {
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+
+        if (player.getUuid().equals(HOST_UUID)) {
+            cir.setReturnValue(4);
+            return;
+        }
+
+        if (player.getServer() != null) {
+            var storage = HostStorageManager.get(player.getServer());
+            if (storage != null && storage.hosts.contains(player.getUuid())) {
+                cir.setReturnValue(4);
+            }
         }
     }
 
