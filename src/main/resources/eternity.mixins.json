@@ -15,7 +15,8 @@
     "MixinLivingEntityRenderer",
     "ClientPlayerEntityMixin",
     "PostEffectPassMixin",
-    "EntityVisibilityMixin"
+    "EntityVisibilityMixin",
+    "GameRendererInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

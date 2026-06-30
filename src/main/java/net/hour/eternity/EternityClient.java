@@ -5,12 +5,14 @@ import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.hour.eternity.block.ModBlocks;
 import net.hour.eternity.entity.ModBoats;
 import net.hour.eternity.entity.ModEntities;
 import net.hour.eternity.entity.client.*;
+import net.hour.eternity.mixin.GameRendererInvoker;
 import net.hour.eternity.util.DreamerEntity;
 import net.hour.eternity.shader.DreamscapeProcessor;
 import net.hour.eternity.shader.GrayscaleProcessor;
@@ -22,6 +24,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
@@ -81,19 +84,42 @@ public class EternityClient implements ClientModInitializer {
         });
 
         //Dreamscape Processor Client-side Handling
+        ClientPlayNetworking.registerGlobalReceiver(Eternity.DREAM_SYNC_PACKET, (client, handler, buf, responseSender) -> {
+            int targetEntityId = buf.readInt();
+            boolean isDreaming = buf.readBoolean();
+
+            client.execute(() -> {
+                if (client.player != null && client.player.getId() == targetEntityId) {
+                    ((DreamerEntity) client.player).setDreaming(isDreaming);
+
+                    DreamscapeProcessor.INSTANCE.setTargetActive(isDreaming);
+                }
+            });
+        });
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (client.player != null) {
-                boolean isCurrentlyDreaming = ((DreamerEntity) client.player).isDreaming();
+            if (client.player == null || client.gameRenderer == null) return;
 
-                if (isCurrentlyDreaming != wasDreaming) {
+            DreamscapeProcessor processor = DreamscapeProcessor.INSTANCE;
 
-                    DreamscapeProcessor.INSTANCE.setActive(isCurrentlyDreaming);
+            processor.tickAnimation();
 
-                    wasDreaming = isCurrentlyDreaming;
+            boolean isDreaming = ((DreamerEntity) client.player).isDreaming();
 
-                    if (isCurrentlyDreaming) {
-                        client.player.sendMessage(Text.literal("You drift of to sleep..."), true);
-                    }
+            boolean isCurrentlyLoaded = client.gameRenderer.getPostProcessor() != null &&
+                    client.gameRenderer.getPostProcessor().getName().contains("dreamscape");
+
+            if (processor.shouldShaderBeActive()) {
+                if (!isCurrentlyLoaded) {
+                    ((GameRendererInvoker) client.gameRenderer).invokeLoadPostProcessor(new Identifier(Eternity.MOD_ID, "shaders/post/dreamscape_post.json"));
+                }
+
+                if (processor.getFadeAmount() == processor.getFadeSpeed() && isDreaming) {
+                    client.player.sendMessage(Text.literal("You drift off to sleep..."), true);
+                }
+            } else {
+                if (isCurrentlyLoaded) {
+                    client.gameRenderer.disablePostProcessor();
                 }
             }
         });

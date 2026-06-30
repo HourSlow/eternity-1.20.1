@@ -83,7 +83,7 @@ public class DreamscapeCommand {
         player.sendMessage(Text.literal("You have returned to reality."), true);
     }
 
-    private static void syncDreamState(ServerPlayerEntity player, boolean isDreaming) {
+    public static void syncDreamState(ServerPlayerEntity player, boolean isDreaming) {
         PacketByteBuf buf = PacketByteBufs.create();
 
         buf.writeInt(player.getId());

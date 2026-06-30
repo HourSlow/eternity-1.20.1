@@ -13,6 +13,10 @@ import java.lang.reflect.Field;
 public class DreamscapeProcessor extends PostProcessor {
     public static final DreamscapeProcessor INSTANCE = new DreamscapeProcessor();
 
+    private boolean targetActive = false;
+    private float fadeAmount = 0.0f;
+    public static final float FADE_SPEED = 0.05f; // Higher = faster, Lower = slower fade (0.05 is ~1 second)
+
     static {
         INSTANCE.setActive(false);
     }
@@ -28,5 +32,33 @@ public class DreamscapeProcessor extends PostProcessor {
 
     @Override
     public void afterProcess() {
+    }
+
+    public float getFadeSpeed() {
+        return this.FADE_SPEED;
+    }
+
+    public void setTargetActive(boolean active) {
+        this.targetActive = active;
+    }
+
+    public boolean isTargetActive() {
+        return this.targetActive;
+    }
+
+    public float getFadeAmount() {
+        return this.fadeAmount;
+    }
+
+    public boolean shouldShaderBeActive() {
+        return targetActive || fadeAmount > 0.0f;
+    }
+
+    public void tickAnimation() {
+        if (targetActive) {
+            fadeAmount = Math.min(1.0f, fadeAmount + FADE_SPEED);
+        } else {
+            fadeAmount = Math.max(0.0f, fadeAmount - FADE_SPEED);
+        }
     }
 }
