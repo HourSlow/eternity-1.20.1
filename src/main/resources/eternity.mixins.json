@@ -5,8 +5,8 @@
   "mixins": [
     "ServerPlayerEntityMixin",
     "MixinEntity",
-    "ServerCommandSourceMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "PlayerListS2CPacketMixin"
   ],
   "client": [
     "ItemRendererAccessor",

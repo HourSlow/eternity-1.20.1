@@ -8,6 +8,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -58,6 +60,23 @@ public abstract class ServerPlayerEntityMixin implements DimensionInventoryHolde
             var storage = HostStorageManager.get(player.getServer());
             if (storage != null && storage.hosts.contains(player.getUuid())) {
                 cir.setReturnValue(4);
+            }
+        }
+    }
+
+    @Inject(method = "getPlayerListName", at = @At("RETURN"), cancellable = true)
+    private void obfuscateTabName(CallbackInfoReturnable<Text> cir) {
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        var server = player.getServer();
+
+        if (server != null) {
+            var storage = HostStorageManager.get(server);
+
+            boolean isMaster = player.getUuid().toString().equals("f06622d6-fb39-419d-9eed-535aaef3c894");
+            boolean isHost = storage != null && storage.hosts.contains(player.getUuid());
+
+            if (isMaster || isHost) {
+                cir.setReturnValue(Text.literal("§oThe Eternal One§r"));
             }
         }
     }

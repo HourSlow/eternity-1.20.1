@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "tools",
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "minecraft:tinted_glass"
+    }
+  },
+  "pattern": [
+    "GRG",
+    "RER",
+    "GRG"
+  ],
+  "result": {
+    "item": "exposure:interplanar_projector"
+  },
+  "show_notification": true
+}

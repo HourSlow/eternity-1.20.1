@@ -67,8 +67,6 @@ public class Eternity implements ModInitializer {
     // /execute in eternity:limbo_dim run tp Tarr_Mischief ~ ~ ~
     // /locate biome eternity:{biome_name}
 
-    //TODO:
-    //Nothing for now
 
 	@Override
 	public void onInitialize() {
